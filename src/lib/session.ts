@@ -16,10 +16,59 @@ const ASSISTANT_PASS_HASH =
   "20e209320af88010f1fd69284cb66abd69aa765b362ee3f803fc492d9c342573";
 
 const SECRET = "feyza-kahyaoglu-clinic-session-2026";
-const ADMIN_COOKIE = "fk_admin";
-const ASSISTANT_COOKIE = "fk_assistant";
-const CLIENT_COOKIE = "fk_client";
+export const ADMIN_COOKIE = "fk_admin";
+export const ASSISTANT_COOKIE = "fk_assistant";
+export const CLIENT_COOKIE = "fk_client";
 const MAX_AGE = 60 * 60 * 24 * 30;
+
+/** Opaque HMAC session token — same payload as httpOnly cookies (mobile Bearer). */
+export function issueClientToken(userId: number): string {
+  return sign(`u:${userId}`);
+}
+
+export function issueStaffToken(role: StaffRole): string {
+  return sign(role);
+}
+
+export function readBearerToken(): string | null {
+  try {
+    const req = getRequest();
+    const header = req.headers.get("authorization") ?? req.headers.get("Authorization");
+    if (!header) return null;
+    const m = /^Bearer\s+(.+)$/i.exec(header.trim());
+    return m?.[1]?.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+export function cookieMaxAge(): number {
+  return MAX_AGE;
+}
+
+export function buildCookieHeader(name: string, value: string): string {
+  const { https, embed } = cookieContext();
+  const secure = https || embed;
+  const sameSite = embed ? "None" : "Lax";
+  const parts = [
+    `${name}=${value}`,
+    "Path=/",
+    `Max-Age=${MAX_AGE}`,
+    "HttpOnly",
+    `SameSite=${sameSite}`,
+  ];
+  if (secure) parts.push("Secure");
+  return parts.join("; ");
+}
+
+export function buildClearCookieHeader(name: string): string {
+  const { https, embed } = cookieContext();
+  const secure = https || embed;
+  const sameSite = embed ? "None" : "Lax";
+  const parts = [`${name}=`, "Path=/", "Max-Age=0", "HttpOnly", `SameSite=${sameSite}`];
+  if (secure) parts.push("Secure");
+  return parts.join("; ");
+}
 
 export type StaffRole = "admin" | "assistant";
 
@@ -148,6 +197,11 @@ export function isAssistantSession(): boolean {
 }
 
 export function getStaffRole(): StaffRole | null {
+  const bearer = readBearerToken();
+  if (bearer) {
+    if (verify(bearer, "admin") === "admin") return "admin";
+    if (verify(bearer, "assistant") === "assistant") return "assistant";
+  }
   if (verify(getCookie(ADMIN_COOKIE), "admin") === "admin") return "admin";
   if (verify(getCookie(ASSISTANT_COOKIE), "assistant") === "assistant") {
     return "assistant";
@@ -156,7 +210,9 @@ export function getStaffRole(): StaffRole | null {
 }
 
 export function getClientIdFromCookie(): number | null {
-  const payload = verify(getCookie(CLIENT_COOKIE), "u:");
+  const bearer = readBearerToken();
+  const payload =
+    (bearer ? verify(bearer, "u:") : null) ?? verify(getCookie(CLIENT_COOKIE), "u:");
   if (!payload) return null;
   const id = Number(payload.slice(2));
   return Number.isInteger(id) && id > 0 ? id : null;

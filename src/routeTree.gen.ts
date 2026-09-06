@@ -43,6 +43,13 @@ import { Route as RandevuIndexRouteImport } from './routes/randevu.index'
 import { Route as RandevuBasariliRouteImport } from './routes/randevu.basarili'
 import { Route as AdminDanisanIdRouteImport } from './routes/admin.danisan.$id'
 import { Route as AdminDanisanEkleRouteImport } from './routes/admin.danisan.ekle'
+import { Route as ApiV1AuthLogoutRouteImport } from './routes/api/v1/auth/logout'
+import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth/me'
+import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
+import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
+import { Route as ApiV1AuthAdminLoginRouteImport } from './routes/api/v1/auth/admin/login'
+import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/auth/assistant/login'
+import { Route as ApiV1AuthClientLoginRouteImport } from './routes/api/v1/auth/client/login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -214,6 +221,41 @@ const AdminDanisanEkleRoute = AdminDanisanEkleRouteImport.update({
   path: '/danisan/ekle',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiV1AuthLogoutRoute = ApiV1AuthLogoutRouteImport.update({
+  id: '/api/v1/auth/logout',
+  path: '/api/v1/auth/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthMeRoute = ApiV1AuthMeRouteImport.update({
+  id: '/api/v1/auth/me',
+  path: '/api/v1/auth/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientPanelRoute = ApiV1ClientPanelRouteImport.update({
+  id: '/api/v1/client/panel',
+  path: '/api/v1/client/panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffSessionRoute = ApiV1StaffSessionRouteImport.update({
+  id: '/api/v1/staff/session',
+  path: '/api/v1/staff/session',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthAdminLoginRoute = ApiV1AuthAdminLoginRouteImport.update({
+  id: '/api/v1/auth/admin/login',
+  path: '/api/v1/auth/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthAssistantLoginRoute = ApiV1AuthAssistantLoginRouteImport.update({
+  id: '/api/v1/auth/assistant/login',
+  path: '/api/v1/auth/assistant/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthClientLoginRoute = ApiV1AuthClientLoginRouteImport.update({
+  id: '/api/v1/auth/client/login',
+  path: '/api/v1/auth/client/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -250,6 +292,13 @@ export interface FileRoutesByFullPath {
   '/randevu/': typeof RandevuIndexRoute
   '/admin/danisan/$id': typeof AdminDanisanIdRoute
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
+  '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
+  '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
+  '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
+  '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -283,6 +332,13 @@ export interface FileRoutesByTo {
   '/randevu': typeof RandevuIndexRoute
   '/admin/danisan/$id': typeof AdminDanisanIdRoute
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
+  '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
+  '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
+  '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
+  '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -320,6 +376,13 @@ export interface FileRoutesById {
   '/randevu/': typeof RandevuIndexRoute
   '/admin/danisan/$id': typeof AdminDanisanIdRoute
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
+  '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
+  '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
+  '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
+  '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -358,6 +421,13 @@ export interface FileRouteTypes {
     | '/randevu/'
     | '/admin/danisan/$id'
     | '/admin/danisan/ekle'
+    | '/api/v1/auth/logout'
+    | '/api/v1/auth/me'
+    | '/api/v1/client/panel'
+    | '/api/v1/staff/session'
+    | '/api/v1/auth/admin/login'
+    | '/api/v1/auth/assistant/login'
+    | '/api/v1/auth/client/login'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -391,6 +461,13 @@ export interface FileRouteTypes {
     | '/randevu'
     | '/admin/danisan/$id'
     | '/admin/danisan/ekle'
+    | '/api/v1/auth/logout'
+    | '/api/v1/auth/me'
+    | '/api/v1/client/panel'
+    | '/api/v1/staff/session'
+    | '/api/v1/auth/admin/login'
+    | '/api/v1/auth/assistant/login'
+    | '/api/v1/auth/client/login'
   id:
     | '__root__'
     | '/'
@@ -427,6 +504,13 @@ export interface FileRouteTypes {
     | '/randevu/'
     | '/admin/danisan/$id'
     | '/admin/danisan/ekle'
+    | '/api/v1/auth/logout'
+    | '/api/v1/auth/me'
+    | '/api/v1/client/panel'
+    | '/api/v1/staff/session'
+    | '/api/v1/auth/admin/login'
+    | '/api/v1/auth/assistant/login'
+    | '/api/v1/auth/client/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -443,6 +527,13 @@ export interface RootRouteChildren {
   RandevuRoute: typeof RandevuRouteWithChildren
   SifremiUnuttumRoute: typeof SifremiUnuttumRoute
   AsistanGirisRoute: typeof AsistanGirisRoute
+  ApiV1AuthLogoutRoute: typeof ApiV1AuthLogoutRoute
+  ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
+  ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
+  ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
+  ApiV1AuthAdminLoginRoute: typeof ApiV1AuthAdminLoginRoute
+  ApiV1AuthAssistantLoginRoute: typeof ApiV1AuthAssistantLoginRoute
+  ApiV1AuthClientLoginRoute: typeof ApiV1AuthClientLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -685,6 +776,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDanisanEkleRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/v1/auth/logout': {
+      id: '/api/v1/auth/logout'
+      path: '/api/v1/auth/logout'
+      fullPath: '/api/v1/auth/logout'
+      preLoaderRoute: typeof ApiV1AuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/me': {
+      id: '/api/v1/auth/me'
+      path: '/api/v1/auth/me'
+      fullPath: '/api/v1/auth/me'
+      preLoaderRoute: typeof ApiV1AuthMeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/panel': {
+      id: '/api/v1/client/panel'
+      path: '/api/v1/client/panel'
+      fullPath: '/api/v1/client/panel'
+      preLoaderRoute: typeof ApiV1ClientPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/session': {
+      id: '/api/v1/staff/session'
+      path: '/api/v1/staff/session'
+      fullPath: '/api/v1/staff/session'
+      preLoaderRoute: typeof ApiV1StaffSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/admin/login': {
+      id: '/api/v1/auth/admin/login'
+      path: '/api/v1/auth/admin/login'
+      fullPath: '/api/v1/auth/admin/login'
+      preLoaderRoute: typeof ApiV1AuthAdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/assistant/login': {
+      id: '/api/v1/auth/assistant/login'
+      path: '/api/v1/auth/assistant/login'
+      fullPath: '/api/v1/auth/assistant/login'
+      preLoaderRoute: typeof ApiV1AuthAssistantLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/client/login': {
+      id: '/api/v1/auth/client/login'
+      path: '/api/v1/auth/client/login'
+      fullPath: '/api/v1/auth/client/login'
+      preLoaderRoute: typeof ApiV1AuthClientLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -769,6 +909,13 @@ const rootRouteChildren: RootRouteChildren = {
   RandevuRoute: RandevuRouteWithChildren,
   SifremiUnuttumRoute: SifremiUnuttumRoute,
   AsistanGirisRoute: AsistanGirisRoute,
+  ApiV1AuthLogoutRoute: ApiV1AuthLogoutRoute,
+  ApiV1AuthMeRoute: ApiV1AuthMeRoute,
+  ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
+  ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
+  ApiV1AuthAdminLoginRoute: ApiV1AuthAdminLoginRoute,
+  ApiV1AuthAssistantLoginRoute: ApiV1AuthAssistantLoginRoute,
+  ApiV1AuthClientLoginRoute: ApiV1AuthClientLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
