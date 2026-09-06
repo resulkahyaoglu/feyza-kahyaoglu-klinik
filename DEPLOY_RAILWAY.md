@@ -18,7 +18,7 @@ npm run start
 ### Start / build
 
 - Start: npm run start (= migrate then node .output/server/index.mjs)
-- Build: npm run build (vite + Nitro node-server + migrate)
+- Build: npm run build (vite + Nitro node-server only; migrate runs on start)
 - PORT is injected by the platform
 
 ### Behavior
