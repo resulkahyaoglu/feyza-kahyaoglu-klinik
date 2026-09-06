@@ -10,3 +10,7 @@ Danışan verisi, tahlil ve şifreler bu depoda yoktur.
 ## Mobil API
 
 Stable JSON API for the Expo app: see [`MOBILE_API.md`](./MOBILE_API.md) (`/api/v1`, Bearer + cookie).
+
+## Hosting
+
+See DEPLOY_RAILWAY.md for Postgres env vars and deploy steps.

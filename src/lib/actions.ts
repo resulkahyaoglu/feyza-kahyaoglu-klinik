@@ -841,9 +841,12 @@ const appointmentSelect = `
   (select gender from users where users.id = appointments.user_id) as client_gender
 `;
 
-const PDF_DIR = join(process.cwd(), "data", "diet-pdfs");
-const LAB_DIR = join(process.cwd(), "data", "lab-files");
-const OFFPLAN_DIR = join(process.cwd(), "data", "offplan-photos");
+const DATA_ROOT =
+  (typeof process !== "undefined" && process.env.DATA_DIR?.trim()) ||
+  join(process.cwd(), "data");
+const PDF_DIR = join(DATA_ROOT, "diet-pdfs");
+const LAB_DIR = join(DATA_ROOT, "lab-files");
+const OFFPLAN_DIR = join(DATA_ROOT, "offplan-photos");
 const MAX_UPLOAD_BYTES = 32 * 1024 * 1024;
 
 const OFFPLAN_LIST_SELECT = `o.id, o.user_id, o.slot, o.kind, o.detail, o.amount, o.note, o.is_read,
