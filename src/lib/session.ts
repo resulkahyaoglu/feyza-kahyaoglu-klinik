@@ -15,7 +15,9 @@ const ASSISTANT_USER = "asistan";
 const ASSISTANT_PASS_HASH =
   "20e209320af88010f1fd69284cb66abd69aa765b362ee3f803fc492d9c342573";
 
-const SECRET = "feyza-kahyaoglu-clinic-session-2026";
+const SECRET =
+  (typeof process !== "undefined" && process.env.SESSION_SECRET?.trim()) ||
+  "feyza-kahyaoglu-clinic-session-2026";
 export const ADMIN_COOKIE = "fk_admin";
 export const ASSISTANT_COOKIE = "fk_assistant";
 export const CLIENT_COOKIE = "fk_client";

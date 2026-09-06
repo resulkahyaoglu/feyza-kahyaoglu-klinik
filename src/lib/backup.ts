@@ -3,7 +3,10 @@ import { join } from "node:path";
 import type { Sql } from "@/lib/db";
 import { todayISO } from "@/lib/clinic";
 
-const BACKUP_DIR = join(process.cwd(), "data", "backups");
+const DATA_ROOT =
+  (typeof process !== "undefined" && process.env.DATA_DIR?.trim()) ||
+  join(process.cwd(), "data");
+const BACKUP_DIR = join(DATA_ROOT, "backups");
 const KEEP_DAYS = 14;
 
 const CLINIC_TABLES = [

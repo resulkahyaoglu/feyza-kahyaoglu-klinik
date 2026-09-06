@@ -1,0 +1,12 @@
+# TanStack Start on Railway (Nitro node-server)
+# Start/build scripts live in package.json.
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm run start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
