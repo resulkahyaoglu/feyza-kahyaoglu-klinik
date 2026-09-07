@@ -49,11 +49,16 @@ import { Route as ApiV1ClientMessagesRouteImport } from './routes/api/v1/client/
 import { Route as ApiV1ClientOffplanRouteImport } from './routes/api/v1/client/offplan'
 import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
 import { Route as ApiV1ClientWaterRouteImport } from './routes/api/v1/client/water'
+import { Route as ApiV1StaffAppointmentsRouteImport } from './routes/api/v1/staff/appointments'
 import { Route as ApiV1StaffDashboardRouteImport } from './routes/api/v1/staff/dashboard'
 import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
 import { Route as ApiV1AuthAdminLoginRouteImport } from './routes/api/v1/auth/admin/login'
 import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/auth/assistant/login'
 import { Route as ApiV1AuthClientLoginRouteImport } from './routes/api/v1/auth/client/login'
+import { Route as ApiV1StaffClientsIndexRouteImport } from './routes/api/v1/staff/clients/index'
+import { Route as ApiV1StaffClientsIdRouteImport } from './routes/api/v1/staff/clients/$id'
+import { Route as ApiV1StaffNotificationsIndexRouteImport } from './routes/api/v1/staff/notifications/index'
+import { Route as ApiV1StaffNotificationsReadRouteImport } from './routes/api/v1/staff/notifications/read'
 import { Route as ApiV1ClientDietsIdPdfRouteImport } from './routes/api/v1/client/diets.$id.pdf'
 
 const IndexRoute = IndexRouteImport.update({
@@ -256,6 +261,11 @@ const ApiV1ClientWaterRoute = ApiV1ClientWaterRouteImport.update({
   path: '/api/v1/client/water',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1StaffAppointmentsRoute = ApiV1StaffAppointmentsRouteImport.update({
+  id: '/api/v1/staff/appointments',
+  path: '/api/v1/staff/appointments',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1StaffDashboardRoute = ApiV1StaffDashboardRouteImport.update({
   id: '/api/v1/staff/dashboard',
   path: '/api/v1/staff/dashboard',
@@ -281,6 +291,28 @@ const ApiV1AuthClientLoginRoute = ApiV1AuthClientLoginRouteImport.update({
   path: '/api/v1/auth/client/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1StaffClientsIndexRoute = ApiV1StaffClientsIndexRouteImport.update({
+  id: '/api/v1/staff/clients/',
+  path: '/api/v1/staff/clients/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffClientsIdRoute = ApiV1StaffClientsIdRouteImport.update({
+  id: '/api/v1/staff/clients/$id',
+  path: '/api/v1/staff/clients/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffNotificationsIndexRoute =
+  ApiV1StaffNotificationsIndexRouteImport.update({
+    id: '/api/v1/staff/notifications/',
+    path: '/api/v1/staff/notifications/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiV1StaffNotificationsReadRoute =
+  ApiV1StaffNotificationsReadRouteImport.update({
+    id: '/api/v1/staff/notifications/read',
+    path: '/api/v1/staff/notifications/read',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiV1ClientDietsIdPdfRoute = ApiV1ClientDietsIdPdfRouteImport.update({
   id: '/api/v1/client/diets/$id/pdf',
   path: '/api/v1/client/diets/$id/pdf',
@@ -328,11 +360,16 @@ export interface FileRoutesByFullPath {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesByTo {
@@ -373,11 +410,16 @@ export interface FileRoutesByTo {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/clients': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/notifications': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesById {
@@ -422,11 +464,16 @@ export interface FileRoutesById {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRouteTypes {
@@ -472,11 +519,16 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/clients/'
+    | '/api/v1/staff/notifications/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -517,11 +569,16 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/clients'
+    | '/api/v1/staff/notifications'
     | '/api/v1/client/diets/$id/pdf'
   id:
     | '__root__'
@@ -565,11 +622,16 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/clients/'
+    | '/api/v1/staff/notifications/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesById: FileRoutesById
 }
@@ -593,11 +655,16 @@ export interface RootRouteChildren {
   ApiV1ClientOffplanRoute: typeof ApiV1ClientOffplanRoute
   ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
   ApiV1ClientWaterRoute: typeof ApiV1ClientWaterRoute
+  ApiV1StaffAppointmentsRoute: typeof ApiV1StaffAppointmentsRoute
   ApiV1StaffDashboardRoute: typeof ApiV1StaffDashboardRoute
   ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
   ApiV1AuthAdminLoginRoute: typeof ApiV1AuthAdminLoginRoute
   ApiV1AuthAssistantLoginRoute: typeof ApiV1AuthAssistantLoginRoute
   ApiV1AuthClientLoginRoute: typeof ApiV1AuthClientLoginRoute
+  ApiV1StaffClientsIdRoute: typeof ApiV1StaffClientsIdRoute
+  ApiV1StaffNotificationsReadRoute: typeof ApiV1StaffNotificationsReadRoute
+  ApiV1StaffClientsIndexRoute: typeof ApiV1StaffClientsIndexRoute
+  ApiV1StaffNotificationsIndexRoute: typeof ApiV1StaffNotificationsIndexRoute
   ApiV1ClientDietsIdPdfRoute: typeof ApiV1ClientDietsIdPdfRoute
 }
 
@@ -883,6 +950,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1ClientWaterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/staff/appointments': {
+      id: '/api/v1/staff/appointments'
+      path: '/api/v1/staff/appointments'
+      fullPath: '/api/v1/staff/appointments'
+      preLoaderRoute: typeof ApiV1StaffAppointmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/staff/dashboard': {
       id: '/api/v1/staff/dashboard'
       path: '/api/v1/staff/dashboard'
@@ -916,6 +990,34 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/auth/client/login'
       fullPath: '/api/v1/auth/client/login'
       preLoaderRoute: typeof ApiV1AuthClientLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/clients/': {
+      id: '/api/v1/staff/clients/'
+      path: '/api/v1/staff/clients'
+      fullPath: '/api/v1/staff/clients/'
+      preLoaderRoute: typeof ApiV1StaffClientsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/clients/$id': {
+      id: '/api/v1/staff/clients/$id'
+      path: '/api/v1/staff/clients/$id'
+      fullPath: '/api/v1/staff/clients/$id'
+      preLoaderRoute: typeof ApiV1StaffClientsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/notifications/': {
+      id: '/api/v1/staff/notifications/'
+      path: '/api/v1/staff/notifications'
+      fullPath: '/api/v1/staff/notifications/'
+      preLoaderRoute: typeof ApiV1StaffNotificationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/notifications/read': {
+      id: '/api/v1/staff/notifications/read'
+      path: '/api/v1/staff/notifications/read'
+      fullPath: '/api/v1/staff/notifications/read'
+      preLoaderRoute: typeof ApiV1StaffNotificationsReadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/client/diets/$id/pdf': {
@@ -1015,11 +1117,16 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1ClientOffplanRoute: ApiV1ClientOffplanRoute,
   ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
   ApiV1ClientWaterRoute: ApiV1ClientWaterRoute,
+  ApiV1StaffAppointmentsRoute: ApiV1StaffAppointmentsRoute,
   ApiV1StaffDashboardRoute: ApiV1StaffDashboardRoute,
   ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
   ApiV1AuthAdminLoginRoute: ApiV1AuthAdminLoginRoute,
   ApiV1AuthAssistantLoginRoute: ApiV1AuthAssistantLoginRoute,
   ApiV1AuthClientLoginRoute: ApiV1AuthClientLoginRoute,
+  ApiV1StaffClientsIdRoute: ApiV1StaffClientsIdRoute,
+  ApiV1StaffNotificationsReadRoute: ApiV1StaffNotificationsReadRoute,
+  ApiV1StaffClientsIndexRoute: ApiV1StaffClientsIndexRoute,
+  ApiV1StaffNotificationsIndexRoute: ApiV1StaffNotificationsIndexRoute,
   ApiV1ClientDietsIdPdfRoute: ApiV1ClientDietsIdPdfRoute,
 }
 export const routeTree = rootRouteImport

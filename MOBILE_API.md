@@ -149,6 +149,81 @@ Success `200`:
 Unauthorized `401`: `{ "auth": false, "error": "Personel oturumu gerekli." }`
 
 
+
+### `GET /api/v1/staff/clients`
+
+Authenticated **admin** or **assistant**. Active clients (optional `?q=` name/phone search).
+
+Success `200`:
+
+```json
+{
+  "auth": true,
+  "role": "admin",
+  "clients": [
+    {
+      "id": 1,
+      "full_name": "Ayşe Yılmaz",
+      "phone": "05XXXXXXXXX",
+      "last_panel_visit": "2026-09-07T10:00:00",
+      "has_ishape": true,
+      "notes": "…"
+    }
+  ]
+}
+```
+
+Notes are truncated (~120 chars). Unauthorized `401`: `{ "auth": false, "error": "Personel oturumu gerekli." }`
+
+### `GET /api/v1/staff/clients/:id`
+
+Authenticated **admin** or **assistant**. Read-only client summary.
+
+Success `200`: `auth`, `role`, `client` (profile), `counts` (`appointments`/`measures`/`diets`), `recentAppointments`, `recentMeasures`, `recentDiets`.
+
+Missing `404`: `{ "ok": false, "error": "Danışan bulunamadı." }`
+
+### `GET /api/v1/staff/appointments?from=&to=`
+
+Authenticated **admin** or **assistant**. Default range: today .. today+7 (Europe/Istanbul). Same appointment fields as dashboard, plus `user_id`.
+
+Success `200`: `{ "auth": true, "role": "admin", "from": "…", "to": "…", "appointments": [ … ] }`
+
+### `GET /api/v1/staff/notifications`
+
+Authenticated **admin** or **assistant**. Recent `admin_notifications` (limit 50) + `unread` count. Assistants do not see `briefing` / `assistant` kinds.
+
+Success `200`:
+
+```json
+{
+  "auth": true,
+  "role": "admin",
+  "unread": 2,
+  "notifications": [
+    {
+      "id": 1,
+      "user_id": 3,
+      "kind": "message",
+      "title": "…",
+      "body": "…",
+      "href": "",
+      "is_read": false,
+      "created_at": "2026-09-07T10:00:00",
+      "client_name": "Ayşe Yılmaz"
+    }
+  ]
+}
+```
+
+### `POST /api/v1/staff/notifications/read`
+
+Authenticated **admin** or **assistant**. Mark one or all as read.
+
+Body: `{ "id": 12 }` **or** `{ "all": true }` (omit / empty also marks all).  
+Success: `{ "ok": true, "id": 12 }` or `{ "ok": true, "all": true }`
+
+
 ## Example (client)
 
 ```bash
