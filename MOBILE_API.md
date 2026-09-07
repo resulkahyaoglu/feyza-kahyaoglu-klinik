@@ -81,6 +81,43 @@ Unauthorized `401`: `{ "auth": false, "error": "Danışan oturumu gerekli." }`
 Authenticated **admin** or **assistant**.  
 Success: `{ "auth": true, "role": "admin" | "assistant" }`
 
+
+### `GET /api/v1/staff/dashboard`
+
+Authenticated **admin** or **assistant**. Today’s clinic summary (Europe/Istanbul date).
+
+Success `200`:
+
+```json
+{
+  "auth": true,
+  "role": "admin",
+  "username": "feyza",
+  "today": "2026-09-07",
+  "summary": {
+    "appointmentsToday": 3,
+    "clientsActive": 42,
+    "pendingRequests": 1,
+    "unreadNotifications": 2
+  },
+  "appointments": [
+    {
+      "id": 1,
+      "appointment_date": "2026-09-07",
+      "appointment_time": "10:00",
+      "service_name": "Kontrol",
+      "client_name": "Ayşe Yılmaz",
+      "client_phone": "05XXXXXXXXX",
+      "status": "onaylandi",
+      "notes": ""
+    }
+  ]
+}
+```
+
+Unauthorized `401`: `{ "auth": false, "error": "Personel oturumu gerekli." }`
+
+
 ## Example (client)
 
 ```bash

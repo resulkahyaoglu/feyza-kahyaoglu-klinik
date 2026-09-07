@@ -46,6 +46,7 @@ import { Route as AdminDanisanEkleRouteImport } from './routes/admin.danisan.ekl
 import { Route as ApiV1AuthLogoutRouteImport } from './routes/api/v1/auth/logout'
 import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth/me'
 import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
+import { Route as ApiV1StaffDashboardRouteImport } from './routes/api/v1/staff/dashboard'
 import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
 import { Route as ApiV1AuthAdminLoginRouteImport } from './routes/api/v1/auth/admin/login'
 import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/auth/assistant/login'
@@ -236,6 +237,11 @@ const ApiV1ClientPanelRoute = ApiV1ClientPanelRouteImport.update({
   path: '/api/v1/client/panel',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1StaffDashboardRoute = ApiV1StaffDashboardRouteImport.update({
+  id: '/api/v1/staff/dashboard',
+  path: '/api/v1/staff/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1StaffSessionRoute = ApiV1StaffSessionRouteImport.update({
   id: '/api/v1/staff/session',
   path: '/api/v1/staff/session',
@@ -295,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
@@ -379,6 +387,7 @@ export interface FileRoutesById {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
@@ -424,6 +433,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/panel'
+    | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
@@ -464,6 +474,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/panel'
+    | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
@@ -507,6 +518,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/panel'
+    | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
@@ -530,6 +542,7 @@ export interface RootRouteChildren {
   ApiV1AuthLogoutRoute: typeof ApiV1AuthLogoutRoute
   ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
   ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
+  ApiV1StaffDashboardRoute: typeof ApiV1StaffDashboardRoute
   ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
   ApiV1AuthAdminLoginRoute: typeof ApiV1AuthAdminLoginRoute
   ApiV1AuthAssistantLoginRoute: typeof ApiV1AuthAssistantLoginRoute
@@ -797,6 +810,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1ClientPanelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/staff/dashboard': {
+      id: '/api/v1/staff/dashboard'
+      path: '/api/v1/staff/dashboard'
+      fullPath: '/api/v1/staff/dashboard'
+      preLoaderRoute: typeof ApiV1StaffDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/staff/session': {
       id: '/api/v1/staff/session'
       path: '/api/v1/staff/session'
@@ -912,6 +932,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1AuthLogoutRoute: ApiV1AuthLogoutRoute,
   ApiV1AuthMeRoute: ApiV1AuthMeRoute,
   ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
+  ApiV1StaffDashboardRoute: ApiV1StaffDashboardRoute,
   ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
   ApiV1AuthAdminLoginRoute: ApiV1AuthAdminLoginRoute,
   ApiV1AuthAssistantLoginRoute: ApiV1AuthAssistantLoginRoute,
