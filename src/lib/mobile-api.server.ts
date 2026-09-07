@@ -83,6 +83,32 @@ export function optionsResponse(request: Request): Response {
   return new Response(null, { status: 204, headers: corsHeaders(request) });
 }
 
+/** Binary/PDF response with the same CORS headers as JSON. */
+export function binaryResponse(
+  request: Request,
+  body: BodyInit,
+  init: {
+    status?: number;
+    contentType: string;
+    filename?: string;
+    disposition?: "inline" | "attachment";
+  },
+): Response {
+  const headers = new Headers({
+    "content-type": init.contentType,
+    ...corsHeaders(request),
+  });
+  if (init.filename) {
+    const disp = init.disposition ?? "inline";
+    const safe = init.filename.replace(/[\r\n"]/g, "_");
+    headers.set(
+      "content-disposition",
+      `${disp}; filename="${safe}"; filename*=UTF-8''${encodeURIComponent(safe)}`,
+    );
+  }
+  return new Response(body, { status: init.status ?? 200, headers });
+}
+
 /** Catch thrown Errors so Nitro/h3 never serializes opaque unhandled HTTPError JSON. */
 export async function runApi(
   request: Request,

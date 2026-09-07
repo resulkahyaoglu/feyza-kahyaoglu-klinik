@@ -8,7 +8,8 @@ Web panel auth (httpOnly cookies + TanStack `createServerFn`) is unchanged.
 Production: `https://feyzakahyaoglu.com/api/v1`  
 Override in the mobile app with `EXPO_PUBLIC_API_URL` (no trailing slash; should end with `/api/v1` or the app appends paths under `/api/v1`).
 
-**Deploy note:** Until this branch is merged and deployed to production, `/api/v1` will 404 on the live site. Ship the klinik PR before relying on the mobile client in production.
+**Staging (Railway):** `https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1`  
+**Production cutover:** point mobile `DEFAULT_API_BASE` / `EXPO_PUBLIC_API_URL` at `https://feyzakahyaoglu.com/api/v1` after DNS cutover.
 
 ## Auth mechanism
 
@@ -72,9 +73,39 @@ Unauthorized `401`: `{ "ok": false, "error": "Oturum bulunamadı.", ... }`
 
 ### `GET /api/v1/client/panel`
 
-Authenticated **client**. Returns the same payload shape as `loadClientPanel` (`auth`, `user`, `diets`, `measures`, `messages`, `appts`, …).
+Authenticated **client**. Returns the same payload shape as `loadClientPanel`:
+`auth`, `user`, `diets`, `measures`, `measuresChrono`, `ishape`, `messages`, `appts`,
+`requests`, `offplans`, `progress`, `nextAppt`, `packages`, `labs`, `dailyToday`,
+`waterTarget`, `labValues`, `mindfulToday`, `weekHabits`, `fasting`, …
 
 Unauthorized `401`: `{ "auth": false, "error": "Danışan oturumu gerekli." }`
+
+### `GET /api/v1/client/diets/:id/pdf`
+
+Authenticated **client** who owns the diet. Streams `application/pdf` when `pdf_path` or `pdf_b64` is present.
+
+- `200` — binary PDF (`Content-Disposition: inline`)
+- `401` — `{ "ok": false, "error": "Danışan oturumu gerekli." }`
+- `404` — JSON when the diet is missing **or** only `pdf_name` exists with no blob:
+  `{ "ok": false, "error": "PDF dosyası sunucuda yok (…).", "pdf_name": "…" }`
+
+### `POST /api/v1/client/water`
+
+Body (any combination): `{ "waterMl": 1500, "addWaterMl": 250, "sweaty": true }`
+
+Reuses `saveDailyLog`. Success: `{ "ok": true, "waterMl": 1500 }`
+
+### `POST /api/v1/client/offplan`
+
+Body: `{ "slot": "ogle", "kind": "extra"|"missing", "detail": "…", "amount?": "…", "note?": "…" }`  
+(`slot`: `sabah|ogle|aksam|gece|ara`). Photo upload optional later.
+
+Success: `{ "ok": true }`
+
+### `POST /api/v1/client/messages`
+
+Body: `{ "message": "…" }`  
+Success: `{ "ok": true }`
 
 ### `GET /api/v1/staff/session`
 
@@ -129,6 +160,13 @@ curl -s https://feyzakahyaoglu.com/api/v1/auth/me \
   -H "Authorization: Bearer $TOKEN"
 
 curl -s https://feyzakahyaoglu.com/api/v1/client/panel \
+  -H "Authorization: Bearer $TOKEN"
+
+curl -s https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/water \
+  -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+  -d '{"addWaterMl":250,"sweaty":false}'
+
+curl -s -OJ https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/diets/1/pdf \
   -H "Authorization: Bearer $TOKEN"
 ```
 

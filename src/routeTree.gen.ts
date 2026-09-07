@@ -45,12 +45,16 @@ import { Route as AdminDanisanIdRouteImport } from './routes/admin.danisan.$id'
 import { Route as AdminDanisanEkleRouteImport } from './routes/admin.danisan.ekle'
 import { Route as ApiV1AuthLogoutRouteImport } from './routes/api/v1/auth/logout'
 import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth/me'
+import { Route as ApiV1ClientMessagesRouteImport } from './routes/api/v1/client/messages'
+import { Route as ApiV1ClientOffplanRouteImport } from './routes/api/v1/client/offplan'
 import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
+import { Route as ApiV1ClientWaterRouteImport } from './routes/api/v1/client/water'
 import { Route as ApiV1StaffDashboardRouteImport } from './routes/api/v1/staff/dashboard'
 import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
 import { Route as ApiV1AuthAdminLoginRouteImport } from './routes/api/v1/auth/admin/login'
 import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/auth/assistant/login'
 import { Route as ApiV1AuthClientLoginRouteImport } from './routes/api/v1/auth/client/login'
+import { Route as ApiV1ClientDietsIdPdfRouteImport } from './routes/api/v1/client/diets.$id.pdf'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -232,9 +236,24 @@ const ApiV1AuthMeRoute = ApiV1AuthMeRouteImport.update({
   path: '/api/v1/auth/me',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1ClientMessagesRoute = ApiV1ClientMessagesRouteImport.update({
+  id: '/api/v1/client/messages',
+  path: '/api/v1/client/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientOffplanRoute = ApiV1ClientOffplanRouteImport.update({
+  id: '/api/v1/client/offplan',
+  path: '/api/v1/client/offplan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1ClientPanelRoute = ApiV1ClientPanelRouteImport.update({
   id: '/api/v1/client/panel',
   path: '/api/v1/client/panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientWaterRoute = ApiV1ClientWaterRouteImport.update({
+  id: '/api/v1/client/water',
+  path: '/api/v1/client/water',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1StaffDashboardRoute = ApiV1StaffDashboardRouteImport.update({
@@ -260,6 +279,11 @@ const ApiV1AuthAssistantLoginRoute = ApiV1AuthAssistantLoginRouteImport.update({
 const ApiV1AuthClientLoginRoute = ApiV1AuthClientLoginRouteImport.update({
   id: '/api/v1/auth/client/login',
   path: '/api/v1/auth/client/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientDietsIdPdfRoute = ApiV1ClientDietsIdPdfRouteImport.update({
+  id: '/api/v1/client/diets/$id/pdf',
+  path: '/api/v1/client/diets/$id/pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -300,12 +324,16 @@ export interface FileRoutesByFullPath {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -341,12 +369,16 @@ export interface FileRoutesByTo {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -386,12 +418,16 @@ export interface FileRoutesById {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
   '/api/v1/auth/admin/login': typeof ApiV1AuthAdminLoginRoute
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
+  '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -432,12 +468,16 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/messages'
+    | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
+    | '/api/v1/client/water'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/client/diets/$id/pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -473,12 +513,16 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/messages'
+    | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
+    | '/api/v1/client/water'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/client/diets/$id/pdf'
   id:
     | '__root__'
     | '/'
@@ -517,12 +561,16 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/messages'
+    | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
+    | '/api/v1/client/water'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
     | '/api/v1/auth/admin/login'
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
+    | '/api/v1/client/diets/$id/pdf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -541,12 +589,16 @@ export interface RootRouteChildren {
   AsistanGirisRoute: typeof AsistanGirisRoute
   ApiV1AuthLogoutRoute: typeof ApiV1AuthLogoutRoute
   ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
+  ApiV1ClientMessagesRoute: typeof ApiV1ClientMessagesRoute
+  ApiV1ClientOffplanRoute: typeof ApiV1ClientOffplanRoute
   ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
+  ApiV1ClientWaterRoute: typeof ApiV1ClientWaterRoute
   ApiV1StaffDashboardRoute: typeof ApiV1StaffDashboardRoute
   ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
   ApiV1AuthAdminLoginRoute: typeof ApiV1AuthAdminLoginRoute
   ApiV1AuthAssistantLoginRoute: typeof ApiV1AuthAssistantLoginRoute
   ApiV1AuthClientLoginRoute: typeof ApiV1AuthClientLoginRoute
+  ApiV1ClientDietsIdPdfRoute: typeof ApiV1ClientDietsIdPdfRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -803,11 +855,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1AuthMeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/client/messages': {
+      id: '/api/v1/client/messages'
+      path: '/api/v1/client/messages'
+      fullPath: '/api/v1/client/messages'
+      preLoaderRoute: typeof ApiV1ClientMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/offplan': {
+      id: '/api/v1/client/offplan'
+      path: '/api/v1/client/offplan'
+      fullPath: '/api/v1/client/offplan'
+      preLoaderRoute: typeof ApiV1ClientOffplanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/client/panel': {
       id: '/api/v1/client/panel'
       path: '/api/v1/client/panel'
       fullPath: '/api/v1/client/panel'
       preLoaderRoute: typeof ApiV1ClientPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/water': {
+      id: '/api/v1/client/water'
+      path: '/api/v1/client/water'
+      fullPath: '/api/v1/client/water'
+      preLoaderRoute: typeof ApiV1ClientWaterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/staff/dashboard': {
@@ -843,6 +916,13 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/auth/client/login'
       fullPath: '/api/v1/auth/client/login'
       preLoaderRoute: typeof ApiV1AuthClientLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/diets/$id/pdf': {
+      id: '/api/v1/client/diets/$id/pdf'
+      path: '/api/v1/client/diets/$id/pdf'
+      fullPath: '/api/v1/client/diets/$id/pdf'
+      preLoaderRoute: typeof ApiV1ClientDietsIdPdfRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -931,12 +1011,16 @@ const rootRouteChildren: RootRouteChildren = {
   AsistanGirisRoute: AsistanGirisRoute,
   ApiV1AuthLogoutRoute: ApiV1AuthLogoutRoute,
   ApiV1AuthMeRoute: ApiV1AuthMeRoute,
+  ApiV1ClientMessagesRoute: ApiV1ClientMessagesRoute,
+  ApiV1ClientOffplanRoute: ApiV1ClientOffplanRoute,
   ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
+  ApiV1ClientWaterRoute: ApiV1ClientWaterRoute,
   ApiV1StaffDashboardRoute: ApiV1StaffDashboardRoute,
   ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
   ApiV1AuthAdminLoginRoute: ApiV1AuthAdminLoginRoute,
   ApiV1AuthAssistantLoginRoute: ApiV1AuthAssistantLoginRoute,
   ApiV1AuthClientLoginRoute: ApiV1AuthClientLoginRoute,
+  ApiV1ClientDietsIdPdfRoute: ApiV1ClientDietsIdPdfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
