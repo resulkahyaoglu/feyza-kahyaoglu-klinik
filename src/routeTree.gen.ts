@@ -45,15 +45,15 @@ import { Route as AdminDanisanIdRouteImport } from './routes/admin.danisan.$id'
 import { Route as AdminDanisanEkleRouteImport } from './routes/admin.danisan.ekle'
 import { Route as ApiV1AuthLogoutRouteImport } from './routes/api/v1/auth/logout'
 import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth/me'
+import { Route as ApiV1ClientDailyRouteImport } from './routes/api/v1/client/daily'
+import { Route as ApiV1ClientLabsRouteImport } from './routes/api/v1/client/labs'
 import { Route as ApiV1ClientMessagesRouteImport } from './routes/api/v1/client/messages'
+import { Route as ApiV1ClientMindfulRouteImport } from './routes/api/v1/client/mindful'
 import { Route as ApiV1ClientOffplanRouteImport } from './routes/api/v1/client/offplan'
 import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
-import { Route as ApiV1ClientWaterRouteImport } from './routes/api/v1/client/water'
-import { Route as ApiV1ClientDailyRouteImport } from './routes/api/v1/client/daily'
-import { Route as ApiV1ClientMindfulRouteImport } from './routes/api/v1/client/mindful'
-import { Route as ApiV1ClientProfileRouteImport } from './routes/api/v1/client/profile'
 import { Route as ApiV1ClientPasswordRouteImport } from './routes/api/v1/client/password'
-import { Route as ApiV1ClientLabsRouteImport } from './routes/api/v1/client/labs'
+import { Route as ApiV1ClientProfileRouteImport } from './routes/api/v1/client/profile'
+import { Route as ApiV1ClientWaterRouteImport } from './routes/api/v1/client/water'
 import { Route as ApiV1StaffAppointmentsRouteImport } from './routes/api/v1/staff/appointments'
 import { Route as ApiV1StaffDashboardRouteImport } from './routes/api/v1/staff/dashboard'
 import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
@@ -62,8 +62,13 @@ import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/aut
 import { Route as ApiV1AuthClientLoginRouteImport } from './routes/api/v1/auth/client/login'
 import { Route as ApiV1StaffClientsIndexRouteImport } from './routes/api/v1/staff/clients/index'
 import { Route as ApiV1StaffClientsIdRouteImport } from './routes/api/v1/staff/clients/$id'
+import { Route as ApiV1StaffMaliIndexRouteImport } from './routes/api/v1/staff/mali/index'
+import { Route as ApiV1StaffMaliDebtRouteImport } from './routes/api/v1/staff/mali/debt'
+import { Route as ApiV1StaffMaliPaymentRouteImport } from './routes/api/v1/staff/mali/payment'
 import { Route as ApiV1StaffNotificationsIndexRouteImport } from './routes/api/v1/staff/notifications/index'
 import { Route as ApiV1StaffNotificationsReadRouteImport } from './routes/api/v1/staff/notifications/read'
+import { Route as ApiV1StaffPackagesIndexRouteImport } from './routes/api/v1/staff/packages/index'
+import { Route as ApiV1StaffPasswordIndexRouteImport } from './routes/api/v1/staff/password/index'
 import { Route as ApiV1ClientDietsIdPdfRouteImport } from './routes/api/v1/client/diets.$id.pdf'
 
 const IndexRoute = IndexRouteImport.update({
@@ -246,9 +251,24 @@ const ApiV1AuthMeRoute = ApiV1AuthMeRouteImport.update({
   path: '/api/v1/auth/me',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1ClientDailyRoute = ApiV1ClientDailyRouteImport.update({
+  id: '/api/v1/client/daily',
+  path: '/api/v1/client/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientLabsRoute = ApiV1ClientLabsRouteImport.update({
+  id: '/api/v1/client/labs',
+  path: '/api/v1/client/labs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1ClientMessagesRoute = ApiV1ClientMessagesRouteImport.update({
   id: '/api/v1/client/messages',
   path: '/api/v1/client/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientMindfulRoute = ApiV1ClientMindfulRouteImport.update({
+  id: '/api/v1/client/mindful',
+  path: '/api/v1/client/mindful',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1ClientOffplanRoute = ApiV1ClientOffplanRouteImport.update({
@@ -261,19 +281,9 @@ const ApiV1ClientPanelRoute = ApiV1ClientPanelRouteImport.update({
   path: '/api/v1/client/panel',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiV1ClientWaterRoute = ApiV1ClientWaterRouteImport.update({
-  id: '/api/v1/client/water',
-  path: '/api/v1/client/water',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1ClientDailyRoute = ApiV1ClientDailyRouteImport.update({
-  id: '/api/v1/client/daily',
-  path: '/api/v1/client/daily',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1ClientMindfulRoute = ApiV1ClientMindfulRouteImport.update({
-  id: '/api/v1/client/mindful',
-  path: '/api/v1/client/mindful',
+const ApiV1ClientPasswordRoute = ApiV1ClientPasswordRouteImport.update({
+  id: '/api/v1/client/password',
+  path: '/api/v1/client/password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1ClientProfileRoute = ApiV1ClientProfileRouteImport.update({
@@ -281,14 +291,9 @@ const ApiV1ClientProfileRoute = ApiV1ClientProfileRouteImport.update({
   path: '/api/v1/client/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiV1ClientPasswordRoute = ApiV1ClientPasswordRouteImport.update({
-  id: '/api/v1/client/password',
-  path: '/api/v1/client/password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1ClientLabsRoute = ApiV1ClientLabsRouteImport.update({
-  id: '/api/v1/client/labs',
-  path: '/api/v1/client/labs',
+const ApiV1ClientWaterRoute = ApiV1ClientWaterRouteImport.update({
+  id: '/api/v1/client/water',
+  path: '/api/v1/client/water',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1StaffAppointmentsRoute = ApiV1StaffAppointmentsRouteImport.update({
@@ -331,6 +336,21 @@ const ApiV1StaffClientsIdRoute = ApiV1StaffClientsIdRouteImport.update({
   path: '/api/v1/staff/clients/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1StaffMaliIndexRoute = ApiV1StaffMaliIndexRouteImport.update({
+  id: '/api/v1/staff/mali/',
+  path: '/api/v1/staff/mali/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffMaliDebtRoute = ApiV1StaffMaliDebtRouteImport.update({
+  id: '/api/v1/staff/mali/debt',
+  path: '/api/v1/staff/mali/debt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffMaliPaymentRoute = ApiV1StaffMaliPaymentRouteImport.update({
+  id: '/api/v1/staff/mali/payment',
+  path: '/api/v1/staff/mali/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1StaffNotificationsIndexRoute =
   ApiV1StaffNotificationsIndexRouteImport.update({
     id: '/api/v1/staff/notifications/',
@@ -343,6 +363,16 @@ const ApiV1StaffNotificationsReadRoute =
     path: '/api/v1/staff/notifications/read',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiV1StaffPackagesIndexRoute = ApiV1StaffPackagesIndexRouteImport.update({
+  id: '/api/v1/staff/packages/',
+  path: '/api/v1/staff/packages/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffPasswordIndexRoute = ApiV1StaffPasswordIndexRouteImport.update({
+  id: '/api/v1/staff/password/',
+  path: '/api/v1/staff/password/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1ClientDietsIdPdfRoute = ApiV1ClientDietsIdPdfRouteImport.update({
   id: '/api/v1/client/diets/$id/pdf',
   path: '/api/v1/client/diets/$id/pdf',
@@ -386,15 +416,15 @@ export interface FileRoutesByFullPath {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
-  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
-  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
-  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
-  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
   '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
-  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -402,9 +432,14 @@ export interface FileRoutesByFullPath {
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
   '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
+  '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
   '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/mali/': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
+  '/api/v1/staff/packages/': typeof ApiV1StaffPackagesIndexRoute
+  '/api/v1/staff/password/': typeof ApiV1StaffPasswordIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesByTo {
@@ -441,15 +476,15 @@ export interface FileRoutesByTo {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
-  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
-  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
-  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
-  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
   '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
-  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -457,9 +492,14 @@ export interface FileRoutesByTo {
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
   '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
+  '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
   '/api/v1/staff/clients': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/mali': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications': typeof ApiV1StaffNotificationsIndexRoute
+  '/api/v1/staff/packages': typeof ApiV1StaffPackagesIndexRoute
+  '/api/v1/staff/password': typeof ApiV1StaffPasswordIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesById {
@@ -500,15 +540,15 @@ export interface FileRoutesById {
   '/admin/danisan/ekle': typeof AdminDanisanEkleRoute
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
-  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
-  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
-  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
-  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
   '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
-  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/water': typeof ApiV1ClientWaterRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -516,9 +556,14 @@ export interface FileRoutesById {
   '/api/v1/auth/assistant/login': typeof ApiV1AuthAssistantLoginRoute
   '/api/v1/auth/client/login': typeof ApiV1AuthClientLoginRoute
   '/api/v1/staff/clients/$id': typeof ApiV1StaffClientsIdRoute
+  '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
+  '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
   '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/mali/': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
+  '/api/v1/staff/packages/': typeof ApiV1StaffPackagesIndexRoute
+  '/api/v1/staff/password/': typeof ApiV1StaffPasswordIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRouteTypes {
@@ -560,15 +605,15 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/labs'
     | '/api/v1/client/messages'
+    | '/api/v1/client/mindful'
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
-    | '/api/v1/client/water'
-    | '/api/v1/client/daily'
-    | '/api/v1/client/mindful'
-    | '/api/v1/client/profile'
     | '/api/v1/client/password'
-    | '/api/v1/client/labs'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/water'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -576,9 +621,14 @@ export interface FileRouteTypes {
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
     | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/mali/debt'
+    | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
     | '/api/v1/staff/clients/'
+    | '/api/v1/staff/mali/'
     | '/api/v1/staff/notifications/'
+    | '/api/v1/staff/packages/'
+    | '/api/v1/staff/password/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -615,15 +665,15 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/labs'
     | '/api/v1/client/messages'
+    | '/api/v1/client/mindful'
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
-    | '/api/v1/client/water'
-    | '/api/v1/client/daily'
-    | '/api/v1/client/mindful'
-    | '/api/v1/client/profile'
     | '/api/v1/client/password'
-    | '/api/v1/client/labs'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/water'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -631,9 +681,14 @@ export interface FileRouteTypes {
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
     | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/mali/debt'
+    | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
     | '/api/v1/staff/clients'
+    | '/api/v1/staff/mali'
     | '/api/v1/staff/notifications'
+    | '/api/v1/staff/packages'
+    | '/api/v1/staff/password'
     | '/api/v1/client/diets/$id/pdf'
   id:
     | '__root__'
@@ -673,15 +728,15 @@ export interface FileRouteTypes {
     | '/admin/danisan/ekle'
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/labs'
     | '/api/v1/client/messages'
+    | '/api/v1/client/mindful'
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
-    | '/api/v1/client/water'
-    | '/api/v1/client/daily'
-    | '/api/v1/client/mindful'
-    | '/api/v1/client/profile'
     | '/api/v1/client/password'
-    | '/api/v1/client/labs'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/water'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -689,9 +744,14 @@ export interface FileRouteTypes {
     | '/api/v1/auth/assistant/login'
     | '/api/v1/auth/client/login'
     | '/api/v1/staff/clients/$id'
+    | '/api/v1/staff/mali/debt'
+    | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
     | '/api/v1/staff/clients/'
+    | '/api/v1/staff/mali/'
     | '/api/v1/staff/notifications/'
+    | '/api/v1/staff/packages/'
+    | '/api/v1/staff/password/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesById: FileRoutesById
 }
@@ -711,15 +771,15 @@ export interface RootRouteChildren {
   AsistanGirisRoute: typeof AsistanGirisRoute
   ApiV1AuthLogoutRoute: typeof ApiV1AuthLogoutRoute
   ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
+  ApiV1ClientDailyRoute: typeof ApiV1ClientDailyRoute
+  ApiV1ClientLabsRoute: typeof ApiV1ClientLabsRoute
   ApiV1ClientMessagesRoute: typeof ApiV1ClientMessagesRoute
+  ApiV1ClientMindfulRoute: typeof ApiV1ClientMindfulRoute
   ApiV1ClientOffplanRoute: typeof ApiV1ClientOffplanRoute
   ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
-  ApiV1ClientWaterRoute: typeof ApiV1ClientWaterRoute
-  ApiV1ClientDailyRoute: typeof ApiV1ClientDailyRoute
-  ApiV1ClientMindfulRoute: typeof ApiV1ClientMindfulRoute
-  ApiV1ClientProfileRoute: typeof ApiV1ClientProfileRoute
   ApiV1ClientPasswordRoute: typeof ApiV1ClientPasswordRoute
-  ApiV1ClientLabsRoute: typeof ApiV1ClientLabsRoute
+  ApiV1ClientProfileRoute: typeof ApiV1ClientProfileRoute
+  ApiV1ClientWaterRoute: typeof ApiV1ClientWaterRoute
   ApiV1StaffAppointmentsRoute: typeof ApiV1StaffAppointmentsRoute
   ApiV1StaffDashboardRoute: typeof ApiV1StaffDashboardRoute
   ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
@@ -727,9 +787,14 @@ export interface RootRouteChildren {
   ApiV1AuthAssistantLoginRoute: typeof ApiV1AuthAssistantLoginRoute
   ApiV1AuthClientLoginRoute: typeof ApiV1AuthClientLoginRoute
   ApiV1StaffClientsIdRoute: typeof ApiV1StaffClientsIdRoute
+  ApiV1StaffMaliDebtRoute: typeof ApiV1StaffMaliDebtRoute
+  ApiV1StaffMaliPaymentRoute: typeof ApiV1StaffMaliPaymentRoute
   ApiV1StaffNotificationsReadRoute: typeof ApiV1StaffNotificationsReadRoute
   ApiV1StaffClientsIndexRoute: typeof ApiV1StaffClientsIndexRoute
+  ApiV1StaffMaliIndexRoute: typeof ApiV1StaffMaliIndexRoute
   ApiV1StaffNotificationsIndexRoute: typeof ApiV1StaffNotificationsIndexRoute
+  ApiV1StaffPackagesIndexRoute: typeof ApiV1StaffPackagesIndexRoute
+  ApiV1StaffPasswordIndexRoute: typeof ApiV1StaffPasswordIndexRoute
   ApiV1ClientDietsIdPdfRoute: typeof ApiV1ClientDietsIdPdfRoute
 }
 
@@ -987,11 +1052,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1AuthMeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/client/daily': {
+      id: '/api/v1/client/daily'
+      path: '/api/v1/client/daily'
+      fullPath: '/api/v1/client/daily'
+      preLoaderRoute: typeof ApiV1ClientDailyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/labs': {
+      id: '/api/v1/client/labs'
+      path: '/api/v1/client/labs'
+      fullPath: '/api/v1/client/labs'
+      preLoaderRoute: typeof ApiV1ClientLabsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/client/messages': {
       id: '/api/v1/client/messages'
       path: '/api/v1/client/messages'
       fullPath: '/api/v1/client/messages'
       preLoaderRoute: typeof ApiV1ClientMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/mindful': {
+      id: '/api/v1/client/mindful'
+      path: '/api/v1/client/mindful'
+      fullPath: '/api/v1/client/mindful'
+      preLoaderRoute: typeof ApiV1ClientMindfulRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/client/offplan': {
@@ -1006,6 +1092,20 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/client/panel'
       fullPath: '/api/v1/client/panel'
       preLoaderRoute: typeof ApiV1ClientPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/password': {
+      id: '/api/v1/client/password'
+      path: '/api/v1/client/password'
+      fullPath: '/api/v1/client/password'
+      preLoaderRoute: typeof ApiV1ClientPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/client/profile': {
+      id: '/api/v1/client/profile'
+      path: '/api/v1/client/profile'
+      fullPath: '/api/v1/client/profile'
+      preLoaderRoute: typeof ApiV1ClientProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/client/water': {
@@ -1071,6 +1171,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1StaffClientsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/staff/mali/': {
+      id: '/api/v1/staff/mali/'
+      path: '/api/v1/staff/mali'
+      fullPath: '/api/v1/staff/mali/'
+      preLoaderRoute: typeof ApiV1StaffMaliIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/mali/debt': {
+      id: '/api/v1/staff/mali/debt'
+      path: '/api/v1/staff/mali/debt'
+      fullPath: '/api/v1/staff/mali/debt'
+      preLoaderRoute: typeof ApiV1StaffMaliDebtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/mali/payment': {
+      id: '/api/v1/staff/mali/payment'
+      path: '/api/v1/staff/mali/payment'
+      fullPath: '/api/v1/staff/mali/payment'
+      preLoaderRoute: typeof ApiV1StaffMaliPaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/staff/notifications/': {
       id: '/api/v1/staff/notifications/'
       path: '/api/v1/staff/notifications'
@@ -1083,6 +1204,20 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/staff/notifications/read'
       fullPath: '/api/v1/staff/notifications/read'
       preLoaderRoute: typeof ApiV1StaffNotificationsReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/packages/': {
+      id: '/api/v1/staff/packages/'
+      path: '/api/v1/staff/packages'
+      fullPath: '/api/v1/staff/packages/'
+      preLoaderRoute: typeof ApiV1StaffPackagesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/password/': {
+      id: '/api/v1/staff/password/'
+      path: '/api/v1/staff/password'
+      fullPath: '/api/v1/staff/password/'
+      preLoaderRoute: typeof ApiV1StaffPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/client/diets/$id/pdf': {
@@ -1178,15 +1313,15 @@ const rootRouteChildren: RootRouteChildren = {
   AsistanGirisRoute: AsistanGirisRoute,
   ApiV1AuthLogoutRoute: ApiV1AuthLogoutRoute,
   ApiV1AuthMeRoute: ApiV1AuthMeRoute,
+  ApiV1ClientDailyRoute: ApiV1ClientDailyRoute,
+  ApiV1ClientLabsRoute: ApiV1ClientLabsRoute,
   ApiV1ClientMessagesRoute: ApiV1ClientMessagesRoute,
+  ApiV1ClientMindfulRoute: ApiV1ClientMindfulRoute,
   ApiV1ClientOffplanRoute: ApiV1ClientOffplanRoute,
   ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
-  ApiV1ClientWaterRoute: ApiV1ClientWaterRoute,
-  ApiV1ClientDailyRoute: ApiV1ClientDailyRoute,
-  ApiV1ClientMindfulRoute: ApiV1ClientMindfulRoute,
-  ApiV1ClientProfileRoute: ApiV1ClientProfileRoute,
   ApiV1ClientPasswordRoute: ApiV1ClientPasswordRoute,
-  ApiV1ClientLabsRoute: ApiV1ClientLabsRoute,
+  ApiV1ClientProfileRoute: ApiV1ClientProfileRoute,
+  ApiV1ClientWaterRoute: ApiV1ClientWaterRoute,
   ApiV1StaffAppointmentsRoute: ApiV1StaffAppointmentsRoute,
   ApiV1StaffDashboardRoute: ApiV1StaffDashboardRoute,
   ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
@@ -1194,9 +1329,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1AuthAssistantLoginRoute: ApiV1AuthAssistantLoginRoute,
   ApiV1AuthClientLoginRoute: ApiV1AuthClientLoginRoute,
   ApiV1StaffClientsIdRoute: ApiV1StaffClientsIdRoute,
+  ApiV1StaffMaliDebtRoute: ApiV1StaffMaliDebtRoute,
+  ApiV1StaffMaliPaymentRoute: ApiV1StaffMaliPaymentRoute,
   ApiV1StaffNotificationsReadRoute: ApiV1StaffNotificationsReadRoute,
   ApiV1StaffClientsIndexRoute: ApiV1StaffClientsIndexRoute,
+  ApiV1StaffMaliIndexRoute: ApiV1StaffMaliIndexRoute,
   ApiV1StaffNotificationsIndexRoute: ApiV1StaffNotificationsIndexRoute,
+  ApiV1StaffPackagesIndexRoute: ApiV1StaffPackagesIndexRoute,
+  ApiV1StaffPasswordIndexRoute: ApiV1StaffPasswordIndexRoute,
   ApiV1ClientDietsIdPdfRoute: ApiV1ClientDietsIdPdfRoute,
 }
 export const routeTree = rootRouteImport

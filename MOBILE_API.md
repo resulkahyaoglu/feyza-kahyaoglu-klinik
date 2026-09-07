@@ -272,6 +272,78 @@ Authenticated **admin** or **assistant**. Mark one or all as read.
 Body: `{ "id": 12 }` **or** `{ "all": true }` (omit / empty also marks all).  
 Success: `{ "ok": true, "id": 12 }` or `{ "ok": true, "all": true }`
 
+### `POST /api/v1/staff/clients`
+
+Authenticated **admin** or **assistant**. Create client (safe subset of web `createClient`).
+
+Body: `{ "fullName": "…", "phone": "05…", "gender?": "kadin"|"erkek", "password?", "email?", "notes?", "hasIshape?", "targetWeight?" }`  
+If `password` omitted, a temp password is generated and returned as `tempPassword`.
+
+Success: `{ "ok": true, "id": 12, "tempPassword?": "…" }`
+
+### `PATCH /api/v1/staff/clients/:id`
+
+Authenticated **admin** or **assistant**. Update basic fields.
+
+Body (any subset): `{ "fullName?", "phone?", "notes?", "isActive?", "email?", "hasIshape?", "gender?", "targetWeight?" }`
+
+Success: `{ "ok": true, "id": 12, "client": { … } }`
+
+### `POST /api/v1/staff/appointments`
+
+Authenticated **admin** or **assistant**. Create one or weekly series (status `onaylandi`).
+
+Body: `{ "userId": 1, "serviceKey": "diyet", "date": "YYYY-MM-DD", "time": "HH:MM", "weeks?": 1..9, "notes?", "isMeasure?" }`  
+`serviceKey`: `diyet` | `online-diyet` | `diyet-ishape` | `ishape`
+
+Success: `{ "ok": true, "count": 1, "ids": […], "dates": […] }`
+
+### `PATCH /api/v1/staff/appointments`
+
+Authenticated **admin** or **assistant**. Change status.
+
+Body: `{ "id": 12, "status": "onaylandi"|"beklemede"|"iptal"|"tamamlandi"|"gelmedi", "adminNotes?" }`
+
+Success: `{ "ok": true, "id": 12, "status": "…" }`
+
+### `GET /api/v1/staff/packages`
+
+Authenticated **admin** or **assistant**. Package track list + counts.
+
+Success: `{ "auth": true, "role": "admin", "packages": [ { "id", "user_id", "client_name", "title", "total", "next_no", "remaining", "unit", "is_active", "next_date?", "next_time?" } ], "counts": { "active", "last", "two" } }`
+
+### `PATCH /api/v1/staff/packages`
+
+Authenticated **admin** or **assistant**. Adjust ticks.
+
+Body: `{ "id": 3, "delta": -1|1 }` **or** `{ "id": 3, "remaining": 2 }`
+
+Success: `{ "ok": true, "id", "next_no", "remaining", "is_active" }`
+
+### `GET /api/v1/staff/mali?month=YYYY-MM`
+
+Authenticated **admin** or **assistant**. Month summary. Assistants get `hideTotals: true` and null amounts.
+
+Success: `{ "auth", "role", "hideTotals", "month", "summary": { "income", "totalDebt", "paymentCount", "debtorCount" }, "payments": […], "debtors": […] }`
+
+### `POST /api/v1/staff/mali/payment`
+
+Body: `{ "userId", "amount", "method": "nakit"|"kredi-karti"|"havale"|"diger", "paidAt?", "notes?", "applyToDebt?" }`  
+Success: `{ "ok": true, "id" }`
+
+### `POST /api/v1/staff/mali/debt`
+
+Body: `{ "userId", "amount", "notes?" }`  
+Success: `{ "ok": true, "id" }`
+
+### `POST /api/v1/staff/password`
+
+Authenticated staff — change **own** password.
+
+Body: `{ "current": "…", "next": "…", "again?" }`  
+Success: `{ "ok": true }`
+
+
 
 ## Example (client)
 
