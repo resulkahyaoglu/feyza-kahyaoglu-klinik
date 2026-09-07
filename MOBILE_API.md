@@ -20,7 +20,7 @@ Override in the mobile app with `EXPO_PUBLIC_API_URL` (no trailing slash; should
 
 ## CORS
 
-`OPTIONS` + CORS headers on all `/api/v1` routes. Allows `Authorization` and `Content-Type`. Reflects localhost / Expo origins; otherwise `Access-Control-Allow-Origin: *` (Bearer does not need credentials).
+`OPTIONS` + CORS headers on all `/api/v1` routes. Allows `Authorization` and `Content-Type`. Methods: `GET, POST, PATCH, OPTIONS`. Reflects localhost / Expo origins; otherwise `Access-Control-Allow-Origin: *` (Bearer does not need credentials).
 
 ## Endpoints
 
@@ -86,8 +86,9 @@ Authenticated **client** who owns the diet. Streams `application/pdf` when `pdf_
 
 - `200` — binary PDF (`Content-Disposition: inline`)
 - `401` — `{ "ok": false, "error": "Danışan oturumu gerekli." }`
-- `404` — JSON when the diet is missing **or** only `pdf_name` exists with no blob:
+- `404` — JSON when the diet is missing **or** only `pdf_name` exists with no blob/path on disk:
   `{ "ok": false, "error": "PDF dosyası sunucuda yok (…).", "pdf_name": "…" }`
+- Serving uses `getDietPdfFile` → `pdf_path` under `DATA_DIR/diet-pdfs` **or** `pdf_b64`. If neither exists, mobile should show the Turkish error (diyetisyen yeniden yüklemeli) — do not fall back to a site WebView.
 
 ### `POST /api/v1/client/water`
 
@@ -95,16 +96,64 @@ Body (any combination): `{ "waterMl": 1500, "addWaterMl": 250, "sweaty": true }`
 
 Reuses `saveDailyLog`. Success: `{ "ok": true, "waterMl": 1500 }`
 
+### `POST /api/v1/client/daily`
+
+Authenticated **client**. Reuses `saveDailyLog` — uyku / stres / ruh hali / enerji (and optional su fields). Matches web “Öğün ve uyku yaz” sleep/stress card.
+
+Body (any combination):  
+`{ "sleepHours": 7.5, "stress": 1..5, "mood": "iyi"|"normal"|"yorgun"|"zorlaniyorum", "energy": 1..5, "waterMl"?, "addWaterMl"?, "sweaty"?, "lowCarb"?, "hungerBefore"?, "hungerAfter"?, "eatTrigger"? }`
+
+Success: `{ "ok": true, "waterMl": 1500 }`
+
+### `POST /api/v1/client/mindful`
+
+Authenticated **client**. Reuses `saveMindfulMeal` — öğün farkındalığı.
+
+Body: `{ "slot": "sabah"|"ogle"|"aksam"|"ara", "hungerBefore": 1..10, "hungerAfter?": 1..10, "eatTrigger?": "aclik"|… }`
+
+Success: `{ "ok": true }`
+
 ### `POST /api/v1/client/offplan`
 
-Body: `{ "slot": "ogle", "kind": "extra"|"missing", "detail": "…", "amount?": "…", "note?": "…" }`  
-(`slot`: `sabah|ogle|aksam|gece|ara`). Photo upload optional later.
+JSON body: `{ "slot": "ogle", "kind": "extra"|"missing", "detail": "…", "amount?": "…", "note?": "…", "photoB64?": "…", "photoMime?": "image/jpeg", "photoName?": "yemek.jpg" }`  
+(`slot`: `sabah|ogle|aksam|gece|ara`). Detail **or** photo required (same as web `saveOffplan`).
+
+Also accepts `multipart/form-data` with fields `slot`, `kind`, `detail`, `amount`, `note`, and file field `photo` / `file` (JPG/PNG/WEBP, max 32 MB). Stored via `photo_path` on disk (`DATA_DIR/offplan-photos`) with `photo_b64` fallback — same as web.
 
 Success: `{ "ok": true }`
 
 ### `POST /api/v1/client/messages`
 
 Body: `{ "message": "…" }`  
+Success: `{ "ok": true }`
+
+### `PATCH` / `POST /api/v1/client/profile`
+
+Authenticated **client**. Reuses `clientUpdateProfile` (web `/panel/profil`).
+
+Body: `{ "email": "…" }` (empty string clears email)
+
+Success: `{ "ok": true, "email": "…" | null }`
+
+### `POST /api/v1/client/password`
+
+Authenticated **client**. Reuses `clientChangePassword` (web `/panel/sifre`).
+
+Body: `{ "current": "…", "next": "…", "again?": "…" }`  
+(`again` optional; if present must match `next`. New password min 4 chars.)
+
+Success: `{ "ok": true }`  
+Failure `400`: `{ "ok": false, "error": "Mevcut şifre hatalı." }` (etc.)
+
+### `POST /api/v1/client/labs`
+
+Authenticated **client**. Reuses `uploadLab` (web tahlil yükleme). List remains on `GET /client/panel` → `labs`.
+
+- **JSON:** `{ "title?": "…", "note?": "…", "fileB64": "…", "fileName?": "tahlil.pdf", "mime?": "application/pdf" }`
+- **multipart/form-data:** fields `title`, `note`, file field `file` (PDF/JPG/PNG/WEBP, max 32 MB)
+
+Stored under `DATA_DIR/lab-files` (`file_path`) with `file_b64` fallback — same as web.
+
 Success: `{ "ok": true }`
 
 ### `GET /api/v1/staff/session`
@@ -244,6 +293,14 @@ curl -s https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/w
 curl -s -OJ https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/diets/1/pdf \
   -H "Authorization: Bearer $TOKEN"
 ```
+
+curl -s https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/daily \
+  -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+  -d '{"sleepHours":7.5,"stress":2}'
+
+curl -s https://feyza-kahyaoglu-klinik-production.up.railway.app/api/v1/client/profile \
+  -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+  -X PATCH -d '{"email":"ornek@mail.com"}'
 
 ## Deploy + test
 

@@ -49,6 +49,11 @@ import { Route as ApiV1ClientMessagesRouteImport } from './routes/api/v1/client/
 import { Route as ApiV1ClientOffplanRouteImport } from './routes/api/v1/client/offplan'
 import { Route as ApiV1ClientPanelRouteImport } from './routes/api/v1/client/panel'
 import { Route as ApiV1ClientWaterRouteImport } from './routes/api/v1/client/water'
+import { Route as ApiV1ClientDailyRouteImport } from './routes/api/v1/client/daily'
+import { Route as ApiV1ClientMindfulRouteImport } from './routes/api/v1/client/mindful'
+import { Route as ApiV1ClientProfileRouteImport } from './routes/api/v1/client/profile'
+import { Route as ApiV1ClientPasswordRouteImport } from './routes/api/v1/client/password'
+import { Route as ApiV1ClientLabsRouteImport } from './routes/api/v1/client/labs'
 import { Route as ApiV1StaffAppointmentsRouteImport } from './routes/api/v1/staff/appointments'
 import { Route as ApiV1StaffDashboardRouteImport } from './routes/api/v1/staff/dashboard'
 import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/session'
@@ -261,6 +266,31 @@ const ApiV1ClientWaterRoute = ApiV1ClientWaterRouteImport.update({
   path: '/api/v1/client/water',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1ClientDailyRoute = ApiV1ClientDailyRouteImport.update({
+  id: '/api/v1/client/daily',
+  path: '/api/v1/client/daily',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientMindfulRoute = ApiV1ClientMindfulRouteImport.update({
+  id: '/api/v1/client/mindful',
+  path: '/api/v1/client/mindful',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientProfileRoute = ApiV1ClientProfileRouteImport.update({
+  id: '/api/v1/client/profile',
+  path: '/api/v1/client/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientPasswordRoute = ApiV1ClientPasswordRouteImport.update({
+  id: '/api/v1/client/password',
+  path: '/api/v1/client/password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ClientLabsRoute = ApiV1ClientLabsRouteImport.update({
+  id: '/api/v1/client/labs',
+  path: '/api/v1/client/labs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1StaffAppointmentsRoute = ApiV1StaffAppointmentsRouteImport.update({
   id: '/api/v1/staff/appointments',
   path: '/api/v1/staff/appointments',
@@ -360,6 +390,11 @@ export interface FileRoutesByFullPath {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -410,6 +445,11 @@ export interface FileRoutesByTo {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -464,6 +504,11 @@ export interface FileRoutesById {
   '/api/v1/client/offplan': typeof ApiV1ClientOffplanRoute
   '/api/v1/client/panel': typeof ApiV1ClientPanelRoute
   '/api/v1/client/water': typeof ApiV1ClientWaterRoute
+  '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
+  '/api/v1/client/profile': typeof ApiV1ClientProfileRoute
+  '/api/v1/client/password': typeof ApiV1ClientPasswordRoute
+  '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/staff/appointments': typeof ApiV1StaffAppointmentsRoute
   '/api/v1/staff/dashboard': typeof ApiV1StaffDashboardRoute
   '/api/v1/staff/session': typeof ApiV1StaffSessionRoute
@@ -519,6 +564,11 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/mindful'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/password'
+    | '/api/v1/client/labs'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -569,6 +619,11 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/mindful'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/password'
+    | '/api/v1/client/labs'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -622,6 +677,11 @@ export interface FileRouteTypes {
     | '/api/v1/client/offplan'
     | '/api/v1/client/panel'
     | '/api/v1/client/water'
+    | '/api/v1/client/daily'
+    | '/api/v1/client/mindful'
+    | '/api/v1/client/profile'
+    | '/api/v1/client/password'
+    | '/api/v1/client/labs'
     | '/api/v1/staff/appointments'
     | '/api/v1/staff/dashboard'
     | '/api/v1/staff/session'
@@ -655,6 +715,11 @@ export interface RootRouteChildren {
   ApiV1ClientOffplanRoute: typeof ApiV1ClientOffplanRoute
   ApiV1ClientPanelRoute: typeof ApiV1ClientPanelRoute
   ApiV1ClientWaterRoute: typeof ApiV1ClientWaterRoute
+  ApiV1ClientDailyRoute: typeof ApiV1ClientDailyRoute
+  ApiV1ClientMindfulRoute: typeof ApiV1ClientMindfulRoute
+  ApiV1ClientProfileRoute: typeof ApiV1ClientProfileRoute
+  ApiV1ClientPasswordRoute: typeof ApiV1ClientPasswordRoute
+  ApiV1ClientLabsRoute: typeof ApiV1ClientLabsRoute
   ApiV1StaffAppointmentsRoute: typeof ApiV1StaffAppointmentsRoute
   ApiV1StaffDashboardRoute: typeof ApiV1StaffDashboardRoute
   ApiV1StaffSessionRoute: typeof ApiV1StaffSessionRoute
@@ -1117,6 +1182,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1ClientOffplanRoute: ApiV1ClientOffplanRoute,
   ApiV1ClientPanelRoute: ApiV1ClientPanelRoute,
   ApiV1ClientWaterRoute: ApiV1ClientWaterRoute,
+  ApiV1ClientDailyRoute: ApiV1ClientDailyRoute,
+  ApiV1ClientMindfulRoute: ApiV1ClientMindfulRoute,
+  ApiV1ClientProfileRoute: ApiV1ClientProfileRoute,
+  ApiV1ClientPasswordRoute: ApiV1ClientPasswordRoute,
+  ApiV1ClientLabsRoute: ApiV1ClientLabsRoute,
   ApiV1StaffAppointmentsRoute: ApiV1StaffAppointmentsRoute,
   ApiV1StaffDashboardRoute: ApiV1StaffDashboardRoute,
   ApiV1StaffSessionRoute: ApiV1StaffSessionRoute,
