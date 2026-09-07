@@ -4,36 +4,42 @@ import {
   jsonResponse,
   optionsResponse,
   readJsonBody,
+  runApi,
 } from "@/lib/mobile-api.server";
 
 export const Route = createFileRoute("/api/v1/auth/assistant/login")({
   server: {
     handlers: {
       OPTIONS: async ({ request }) => optionsResponse(request),
-      POST: async ({ request }) => {
-        const body = await readJsonBody<{
-          username?: string;
-          password?: string;
-        }>(request);
-        const username = String(body?.username ?? "").trim();
-        const password = String(body?.password ?? "");
-        if (!username || !password) {
+      POST: async ({ request }) =>
+        runApi(request, async () => {
+          const body = await readJsonBody<{
+            username?: string;
+            password?: string;
+          }>(request);
+          const username = String(body?.username ?? "").trim();
+          const password = String(body?.password ?? "");
+          if (!username || !password) {
+            return jsonResponse(
+              request,
+              { ok: false, error: "Kullanıcı adı ve şifre gerekli." },
+              { status: 400 },
+            );
+          }
+          const result = await apiStaffLogin("assistant", username, password);
+          if (!result.ok) {
+            return jsonResponse(
+              request,
+              { ok: false, error: result.error },
+              { status: result.httpStatus ?? 401 },
+            );
+          }
           return jsonResponse(
             request,
-            { ok: false, error: "Kullanıcı adı ve şifre gerekli." },
-            { status: 400 },
+            { ok: true, token: result.token, role: result.role },
+            { setCookies: result.setCookies },
           );
-        }
-        const result = await apiStaffLogin("assistant", username, password);
-        if (!result.ok) {
-          return jsonResponse(request, result, { status: 401 });
-        }
-        return jsonResponse(
-          request,
-          { ok: true, token: result.token, role: result.role },
-          { setCookies: result.setCookies },
-        );
-      },
+        }),
     },
   },
 });

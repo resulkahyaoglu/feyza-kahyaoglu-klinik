@@ -83,6 +83,31 @@ export function optionsResponse(request: Request): Response {
   return new Response(null, { status: 204, headers: corsHeaders(request) });
 }
 
+/** Catch thrown Errors so Nitro/h3 never serializes opaque unhandled HTTPError JSON. */
+export async function runApi(
+  request: Request,
+  fn: () => Promise<Response>,
+): Promise<Response> {
+  try {
+    return await fn();
+  } catch (err) {
+    console.error("[api/v1]", err);
+    return jsonResponse(
+      request,
+      { ok: false, error: "Sunucu hatası. Lütfen tekrar deneyin." },
+      { status: 500 },
+    );
+  }
+}
+
+function softCookie(fn: () => void): void {
+  try {
+    fn();
+  } catch (err) {
+    console.error("[api/v1] cookie side-effect failed", err);
+  }
+}
+
 export async function readJsonBody<T extends Record<string, unknown>>(
   request: Request,
 ): Promise<T | null> {
@@ -115,29 +140,38 @@ export async function apiClientLogin(
   password: string,
 ): Promise<
   | { ok: true; name: string; token: string; role: "client"; setCookies: string[] }
-  | { ok: false; error: string }
+  | { ok: false; error: string; httpStatus?: number }
 > {
-  const sql = await db();
-  const phone = normalizePhone(phoneRaw);
-  const user = await findClientByPhone(sql, phone);
-  if (!user || user.is_active !== 1) {
-    return { ok: false, error: "Telefon veya şifre hatalı." };
+  try {
+    const sql = await db();
+    const phone = normalizePhone(phoneRaw);
+    const user = await findClientByPhone(sql, phone);
+    if (!user || user.is_active !== 1) {
+      return { ok: false, error: "Telefon veya şifre hatalı." };
+    }
+    const rows = await sql<{ password: string }>`
+      select password from users where id = ${user.id}
+    `;
+    if (!rows[0] || rows[0].password !== hashPassword(password)) {
+      return { ok: false, error: "Telefon veya şifre hatalı." };
+    }
+    const token = issueClientToken(user.id);
+    softCookie(() => setClientCookie(user.id));
+    return {
+      ok: true,
+      name: user.full_name,
+      token,
+      role: "client",
+      setCookies: [buildCookieHeader(CLIENT_COOKIE, token)],
+    };
+  } catch (err) {
+    console.error("[api/v1] client login", err);
+    return {
+      ok: false,
+      error: "Sunucu hatası. Lütfen tekrar deneyin.",
+      httpStatus: 503,
+    };
   }
-  const rows = await sql<{ password: string }>`
-    select password from users where id = ${user.id}
-  `;
-  if (!rows[0] || rows[0].password !== hashPassword(password)) {
-    return { ok: false, error: "Telefon veya şifre hatalı." };
-  }
-  const token = issueClientToken(user.id);
-  setClientCookie(user.id);
-  return {
-    ok: true,
-    name: user.full_name,
-    token,
-    role: "client",
-    setCookies: [buildCookieHeader(CLIENT_COOKIE, token)],
-  };
 }
 
 export async function apiStaffLogin(
@@ -146,50 +180,65 @@ export async function apiStaffLogin(
   password: string,
 ): Promise<
   | { ok: true; token: string; role: StaffRole; setCookies: string[] }
-  | { ok: false; error: string }
+  | { ok: false; error: string; httpStatus?: number }
 > {
-  await db();
-  const ok =
-    role === "admin"
-      ? await checkAdminLogin(username, password)
-      : await checkAssistantLogin(username, password);
-  if (!ok) {
-    return { ok: false, error: "Kullanıcı adı veya şifre hatalı." };
+  try {
+    await db();
+    const ok =
+      role === "admin"
+        ? await checkAdminLogin(username, password)
+        : await checkAssistantLogin(username, password);
+    if (!ok) {
+      return { ok: false, error: "Kullanıcı adı veya şifre hatalı." };
+    }
+    const token = issueStaffToken(role);
+    if (role === "admin") {
+      softCookie(() => setAdminCookie());
+    } else {
+      softCookie(() => setAssistantCookie());
+      await logAssistantSilent("login", "Panele giriş yaptı");
+    }
+    const cookieName = role === "admin" ? ADMIN_COOKIE : ASSISTANT_COOKIE;
+    const clearOther =
+      role === "admin"
+        ? buildClearCookieHeader(ASSISTANT_COOKIE)
+        : buildClearCookieHeader(ADMIN_COOKIE);
+    return {
+      ok: true,
+      token,
+      role,
+      setCookies: [buildCookieHeader(cookieName, token), clearOther],
+    };
+  } catch (err) {
+    console.error("[api/v1] staff login", err);
+    return {
+      ok: false,
+      error: "Sunucu hatası. Lütfen tekrar deneyin.",
+      httpStatus: 503,
+    };
   }
-  const token = issueStaffToken(role);
-  if (role === "admin") {
-    setAdminCookie();
-  } else {
-    setAssistantCookie();
-    await logAssistantSilent("login", "Panele giriş yaptı");
-  }
-  const cookieName = role === "admin" ? ADMIN_COOKIE : ASSISTANT_COOKIE;
-  const clearOther =
-    role === "admin"
-      ? buildClearCookieHeader(ASSISTANT_COOKIE)
-      : buildClearCookieHeader(ADMIN_COOKIE);
-  return {
-    ok: true,
-    token,
-    role,
-    setCookies: [buildCookieHeader(cookieName, token), clearOther],
-  };
 }
 
 export async function apiLogout(): Promise<{ ok: true; setCookies: string[] }> {
-  const sql = await db();
-  if (getStaffRole() === "assistant") {
-    try {
-      await sql`
-        insert into assistant_logs (kind, title, body, href)
-        values ('logout', 'Panelden çıkış yaptı', null, null)
-      `;
-    } catch {
-      /* ignore */
+  try {
+    if (getStaffRole() === "assistant") {
+      const sql = await db();
+      try {
+        await sql`
+          insert into assistant_logs (kind, title, body, href)
+          values ('logout', 'Panelden çıkış yaptı', null, null)
+        `;
+      } catch {
+        /* ignore */
+      }
     }
+  } catch (err) {
+    console.error("[api/v1] logout log", err);
   }
-  clearStaffCookies();
-  clearClientCookie();
+  softCookie(() => {
+    clearStaffCookies();
+    clearClientCookie();
+  });
   return {
     ok: true,
     setCookies: [
@@ -206,14 +255,21 @@ export async function apiMe(): Promise<{
   client: { id: number; name: string; phone?: string } | null;
   role: "admin" | "assistant" | "client" | null;
 }> {
-  await db();
+  // Cookie/Bearer checks do not need the database. Calling db() first caused
+  // unauthenticated /me to 500 (h3 unhandled HTTPError) when Postgres/PGLite
+  // was unavailable — instead of the expected JSON 401.
   const staff = getStaffRole();
   let client: { id: number; name: string; phone?: string } | null = null;
   const clientId = getClientIdFromCookie();
   if (clientId) {
-    const user = await findClientById(await db(), clientId);
-    if (user && user.is_active === 1) {
-      client = { id: user.id, name: user.full_name, phone: user.phone };
+    try {
+      const user = await findClientById(await db(), clientId);
+      if (user && user.is_active === 1) {
+        client = { id: user.id, name: user.full_name, phone: user.phone };
+      }
+    } catch (err) {
+      console.error("[api/v1] me client lookup", err);
+      // Keep staff role if present; otherwise treat as unauthenticated.
     }
   }
   const role: "admin" | "assistant" | "client" | null = staff
