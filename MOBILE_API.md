@@ -76,13 +76,17 @@ Unauthorized `401`: `{ "ok": false, "error": "Oturum bulunamadı.", ... }`
 Authenticated **client**. Returns the same payload shape as `loadClientPanel`:
 `auth`, `user`, `diets`, `measures`, `measuresChrono`, `ishape`, `messages`, `appts`,
 `requests`, `offplans`, `progress`, `nextAppt`, `packages`, `labs`, `dailyToday`,
-`waterTarget`, `labValues`, `mindfulToday`, `weekHabits`, `fasting`, …
+`waterTarget`, `labValues`, `mindfulToday`, `weekHabits`, `fasting`, `fastingToday`, …
+
+Diet list items include `has_pdf`, `pdf_name`, and **`has_pdf_blob`** (`1` only when `pdf_path` or `pdf_b64` is present — mobile must not offer download when blob is missing).
 
 Unauthorized `401`: `{ "auth": false, "error": "Danışan oturumu gerekli." }`
 
 ### `GET /api/v1/client/diets/:id/pdf`
 
 Authenticated **client** who owns the diet. Streams `application/pdf` when `pdf_path` or `pdf_b64` is present.
+
+List payloads expose `has_pdf_blob` separately from `has_pdf`/`pdf_name` so the app can hide a dead download button when only a name exists.
 
 - `200` — binary PDF (`Content-Disposition: inline`)
 - `401` — `{ "ok": false, "error": "Danışan oturumu gerekli." }`
@@ -104,6 +108,15 @@ Body (any combination):
 `{ "sleepHours": 7.5, "stress": 1..5, "mood": "iyi"|"normal"|"yorgun"|"zorlaniyorum", "energy": 1..5, "waterMl"?, "addWaterMl"?, "sweaty"?, "lowCarb"?, "hungerBefore"?, "hungerAfter"?, "eatTrigger"? }`
 
 Success: `{ "ok": true, "waterMl": 1500 }`
+
+
+### `POST /api/v1/client/fasting`
+
+Authenticated **client**. Reuses `clientLogFasting` (web aralıklı oruç günlüğü). Plan remains on `GET /client/panel` → `fasting` / `fastingToday`.
+
+Body: `{ "kind": "broke"|"opened"|"undo", "reason?", "detail?", "energy?": 1..5, "dizzy?", "endReason?" }`
+
+Success: `{ "ok": true }`
 
 ### `POST /api/v1/client/mindful`
 
@@ -232,9 +245,13 @@ Success `200`: `auth`, `role`, `client` (profile), `counts` (`appointments`/`mea
 
 Missing `404`: `{ "ok": false, "error": "Danışan bulunamadı." }`
 
-### `GET /api/v1/staff/appointments?from=&to=`
+### `GET /api/v1/staff/appointments?from=&to=&range=`
 
 Authenticated **admin** or **assistant**. Default range: today .. today+7 (Europe/Istanbul). Same appointment fields as dashboard, plus `user_id`.
+
+- `range=today` → from=to=today
+- `range=week` → today .. today+7
+- Explicit `from` / `to` (ISO date) override `range`.
 
 Success `200`: `{ "auth": true, "role": "admin", "from": "…", "to": "…", "appointments": [ … ] }`
 

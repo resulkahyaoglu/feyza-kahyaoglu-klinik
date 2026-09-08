@@ -65,8 +65,27 @@ export const Route = createFileRoute("/api/v1/staff/appointments")({
           const today = todayISO();
           const fromRaw = url.searchParams.get("from");
           const toRaw = url.searchParams.get("to");
-          const from = isISODate(fromRaw) ? fromRaw : today;
-          const to = isISODate(toRaw) ? toRaw : addDaysISO(today, 7);
+          const range = (url.searchParams.get("range") || "").trim().toLowerCase();
+          // Explicit from/to override range= presets.
+          let from: string;
+          let to: string;
+          if (isISODate(fromRaw) || isISODate(toRaw)) {
+            from = isISODate(fromRaw) ? fromRaw : today;
+            to = isISODate(toRaw)
+              ? toRaw
+              : range === "today"
+                ? from
+                : addDaysISO(from, 7);
+          } else if (range === "today") {
+            from = today;
+            to = today;
+          } else if (range === "week") {
+            from = today;
+            to = addDaysISO(today, 7);
+          } else {
+            from = today;
+            to = addDaysISO(today, 7);
+          }
 
           const sql = await db();
           const appointments = await sql.query<ApptRow>(

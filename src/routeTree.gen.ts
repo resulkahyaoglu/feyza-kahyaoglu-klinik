@@ -46,6 +46,7 @@ import { Route as AdminDanisanEkleRouteImport } from './routes/admin.danisan.ekl
 import { Route as ApiV1AuthLogoutRouteImport } from './routes/api/v1/auth/logout'
 import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth/me'
 import { Route as ApiV1ClientDailyRouteImport } from './routes/api/v1/client/daily'
+import { Route as ApiV1ClientFastingRouteImport } from './routes/api/v1/client/fasting'
 import { Route as ApiV1ClientLabsRouteImport } from './routes/api/v1/client/labs'
 import { Route as ApiV1ClientMessagesRouteImport } from './routes/api/v1/client/messages'
 import { Route as ApiV1ClientMindfulRouteImport } from './routes/api/v1/client/mindful'
@@ -256,6 +257,11 @@ const ApiV1ClientDailyRoute = ApiV1ClientDailyRouteImport.update({
   path: '/api/v1/client/daily',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1ClientFastingRoute = ApiV1ClientFastingRouteImport.update({
+  id: '/api/v1/client/fasting',
+  path: '/api/v1/client/fasting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiV1ClientLabsRoute = ApiV1ClientLabsRouteImport.update({
   id: '/api/v1/client/labs',
   path: '/api/v1/client/labs',
@@ -417,6 +423,7 @@ export interface FileRoutesByFullPath {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/fasting': typeof ApiV1ClientFastingRoute
   '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
   '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
@@ -477,6 +484,7 @@ export interface FileRoutesByTo {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/fasting': typeof ApiV1ClientFastingRoute
   '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
   '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
@@ -541,6 +549,7 @@ export interface FileRoutesById {
   '/api/v1/auth/logout': typeof ApiV1AuthLogoutRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/client/daily': typeof ApiV1ClientDailyRoute
+  '/api/v1/client/fasting': typeof ApiV1ClientFastingRoute
   '/api/v1/client/labs': typeof ApiV1ClientLabsRoute
   '/api/v1/client/messages': typeof ApiV1ClientMessagesRoute
   '/api/v1/client/mindful': typeof ApiV1ClientMindfulRoute
@@ -606,6 +615,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/daily'
+    | '/api/v1/client/fasting'
     | '/api/v1/client/labs'
     | '/api/v1/client/messages'
     | '/api/v1/client/mindful'
@@ -666,6 +676,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/daily'
+    | '/api/v1/client/fasting'
     | '/api/v1/client/labs'
     | '/api/v1/client/messages'
     | '/api/v1/client/mindful'
@@ -729,6 +740,7 @@ export interface FileRouteTypes {
     | '/api/v1/auth/logout'
     | '/api/v1/auth/me'
     | '/api/v1/client/daily'
+    | '/api/v1/client/fasting'
     | '/api/v1/client/labs'
     | '/api/v1/client/messages'
     | '/api/v1/client/mindful'
@@ -772,6 +784,7 @@ export interface RootRouteChildren {
   ApiV1AuthLogoutRoute: typeof ApiV1AuthLogoutRoute
   ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
   ApiV1ClientDailyRoute: typeof ApiV1ClientDailyRoute
+  ApiV1ClientFastingRoute: typeof ApiV1ClientFastingRoute
   ApiV1ClientLabsRoute: typeof ApiV1ClientLabsRoute
   ApiV1ClientMessagesRoute: typeof ApiV1ClientMessagesRoute
   ApiV1ClientMindfulRoute: typeof ApiV1ClientMindfulRoute
@@ -1059,6 +1072,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1ClientDailyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/client/fasting': {
+      id: '/api/v1/client/fasting'
+      path: '/api/v1/client/fasting'
+      fullPath: '/api/v1/client/fasting'
+      preLoaderRoute: typeof ApiV1ClientFastingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/client/labs': {
       id: '/api/v1/client/labs'
       path: '/api/v1/client/labs'
@@ -1314,6 +1334,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1AuthLogoutRoute: ApiV1AuthLogoutRoute,
   ApiV1AuthMeRoute: ApiV1AuthMeRoute,
   ApiV1ClientDailyRoute: ApiV1ClientDailyRoute,
+  ApiV1ClientFastingRoute: ApiV1ClientFastingRoute,
   ApiV1ClientLabsRoute: ApiV1ClientLabsRoute,
   ApiV1ClientMessagesRoute: ApiV1ClientMessagesRoute,
   ApiV1ClientMindfulRoute: ApiV1ClientMindfulRoute,

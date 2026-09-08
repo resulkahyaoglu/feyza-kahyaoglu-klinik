@@ -142,6 +142,7 @@ export type DietRow = {
   created_at: string;
   pdf_name: string | null;
   has_pdf: number;
+  has_pdf_blob: number;
 };
 
 export type { DailyLog, LabValue, MindfulMeal, WeekHabits } from "@/lib/wellness";
@@ -2549,7 +2550,8 @@ export const loadClientDetail = createServerFn({ method: "GET" })
     const diets = await sql<DietRow>`
       select id, user_id, title, content, is_active, is_new, created_at::text as created_at,
              pdf_name,
-             case when coalesce(pdf_path, '') <> '' or coalesce(pdf_name, '') <> '' or pdf_b64 is not null then 1 else 0 end as has_pdf
+             case when coalesce(pdf_path, '') <> '' or coalesce(pdf_name, '') <> '' or pdf_b64 is not null then 1 else 0 end as has_pdf,
+             case when coalesce(pdf_path, '') <> '' or (pdf_b64 is not null and length(pdf_b64) > 0) then 1 else 0 end as has_pdf_blob
       from diet_lists where user_id = ${data.id} order by created_at desc
     `;
     const measures = await sql<MeasureRow>`
@@ -3059,7 +3061,8 @@ export const loadClientPanel = createServerFn({ method: "GET" }).handler(
     const diets = await sql<DietRow>`
       select id, user_id, title, content, is_active, is_new, created_at::text as created_at,
              pdf_name,
-             case when coalesce(pdf_path, '') <> '' or coalesce(pdf_name, '') <> '' or pdf_b64 is not null then 1 else 0 end as has_pdf
+             case when coalesce(pdf_path, '') <> '' or coalesce(pdf_name, '') <> '' or pdf_b64 is not null then 1 else 0 end as has_pdf,
+             case when coalesce(pdf_path, '') <> '' or (pdf_b64 is not null and length(pdf_b64) > 0) then 1 else 0 end as has_pdf_blob
       from diet_lists where user_id = ${user.id} and is_active = 1
       order by created_at desc
     `;
