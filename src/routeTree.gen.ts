@@ -61,8 +61,12 @@ import { Route as ApiV1StaffSessionRouteImport } from './routes/api/v1/staff/ses
 import { Route as ApiV1AuthAdminLoginRouteImport } from './routes/api/v1/auth/admin/login'
 import { Route as ApiV1AuthAssistantLoginRouteImport } from './routes/api/v1/auth/assistant/login'
 import { Route as ApiV1AuthClientLoginRouteImport } from './routes/api/v1/auth/client/login'
+import { Route as ApiV1StaffAssistantIndexRouteImport } from './routes/api/v1/staff/assistant/index'
 import { Route as ApiV1StaffClientsIndexRouteImport } from './routes/api/v1/staff/clients/index'
 import { Route as ApiV1StaffClientsIdRouteImport } from './routes/api/v1/staff/clients/$id'
+import { Route as ApiV1StaffCredentialsIndexRouteImport } from './routes/api/v1/staff/credentials/index'
+import { Route as ApiV1StaffExportIndexRouteImport } from './routes/api/v1/staff/export/index'
+import { Route as ApiV1StaffFeedbackIndexRouteImport } from './routes/api/v1/staff/feedback/index'
 import { Route as ApiV1StaffMaliIndexRouteImport } from './routes/api/v1/staff/mali/index'
 import { Route as ApiV1StaffMaliDebtRouteImport } from './routes/api/v1/staff/mali/debt'
 import { Route as ApiV1StaffMaliPaymentRouteImport } from './routes/api/v1/staff/mali/payment'
@@ -70,6 +74,8 @@ import { Route as ApiV1StaffNotificationsIndexRouteImport } from './routes/api/v
 import { Route as ApiV1StaffNotificationsReadRouteImport } from './routes/api/v1/staff/notifications/read'
 import { Route as ApiV1StaffPackagesIndexRouteImport } from './routes/api/v1/staff/packages/index'
 import { Route as ApiV1StaffPasswordIndexRouteImport } from './routes/api/v1/staff/password/index'
+import { Route as ApiV1StaffTelegramIndexRouteImport } from './routes/api/v1/staff/telegram/index'
+import { Route as ApiV1StaffTrackingIndexRouteImport } from './routes/api/v1/staff/tracking/index'
 import { Route as ApiV1ClientDietsIdPdfRouteImport } from './routes/api/v1/client/diets.$id.pdf'
 
 const IndexRoute = IndexRouteImport.update({
@@ -332,6 +338,12 @@ const ApiV1AuthClientLoginRoute = ApiV1AuthClientLoginRouteImport.update({
   path: '/api/v1/auth/client/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1StaffAssistantIndexRoute =
+  ApiV1StaffAssistantIndexRouteImport.update({
+    id: '/api/v1/staff/assistant/',
+    path: '/api/v1/staff/assistant/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiV1StaffClientsIndexRoute = ApiV1StaffClientsIndexRouteImport.update({
   id: '/api/v1/staff/clients/',
   path: '/api/v1/staff/clients/',
@@ -340,6 +352,22 @@ const ApiV1StaffClientsIndexRoute = ApiV1StaffClientsIndexRouteImport.update({
 const ApiV1StaffClientsIdRoute = ApiV1StaffClientsIdRouteImport.update({
   id: '/api/v1/staff/clients/$id',
   path: '/api/v1/staff/clients/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffCredentialsIndexRoute =
+  ApiV1StaffCredentialsIndexRouteImport.update({
+    id: '/api/v1/staff/credentials/',
+    path: '/api/v1/staff/credentials/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiV1StaffExportIndexRoute = ApiV1StaffExportIndexRouteImport.update({
+  id: '/api/v1/staff/export/',
+  path: '/api/v1/staff/export/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffFeedbackIndexRoute = ApiV1StaffFeedbackIndexRouteImport.update({
+  id: '/api/v1/staff/feedback/',
+  path: '/api/v1/staff/feedback/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1StaffMaliIndexRoute = ApiV1StaffMaliIndexRouteImport.update({
@@ -377,6 +405,16 @@ const ApiV1StaffPackagesIndexRoute = ApiV1StaffPackagesIndexRouteImport.update({
 const ApiV1StaffPasswordIndexRoute = ApiV1StaffPasswordIndexRouteImport.update({
   id: '/api/v1/staff/password/',
   path: '/api/v1/staff/password/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffTelegramIndexRoute = ApiV1StaffTelegramIndexRouteImport.update({
+  id: '/api/v1/staff/telegram/',
+  path: '/api/v1/staff/telegram/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1StaffTrackingIndexRoute = ApiV1StaffTrackingIndexRouteImport.update({
+  id: '/api/v1/staff/tracking/',
+  path: '/api/v1/staff/tracking/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1ClientDietsIdPdfRoute = ApiV1ClientDietsIdPdfRouteImport.update({
@@ -442,11 +480,17 @@ export interface FileRoutesByFullPath {
   '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
   '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/assistant/': typeof ApiV1StaffAssistantIndexRoute
   '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/credentials/': typeof ApiV1StaffCredentialsIndexRoute
+  '/api/v1/staff/export/': typeof ApiV1StaffExportIndexRoute
+  '/api/v1/staff/feedback/': typeof ApiV1StaffFeedbackIndexRoute
   '/api/v1/staff/mali/': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/staff/packages/': typeof ApiV1StaffPackagesIndexRoute
   '/api/v1/staff/password/': typeof ApiV1StaffPasswordIndexRoute
+  '/api/v1/staff/telegram/': typeof ApiV1StaffTelegramIndexRoute
+  '/api/v1/staff/tracking/': typeof ApiV1StaffTrackingIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesByTo {
@@ -503,11 +547,17 @@ export interface FileRoutesByTo {
   '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
   '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/assistant': typeof ApiV1StaffAssistantIndexRoute
   '/api/v1/staff/clients': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/credentials': typeof ApiV1StaffCredentialsIndexRoute
+  '/api/v1/staff/export': typeof ApiV1StaffExportIndexRoute
+  '/api/v1/staff/feedback': typeof ApiV1StaffFeedbackIndexRoute
   '/api/v1/staff/mali': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/staff/packages': typeof ApiV1StaffPackagesIndexRoute
   '/api/v1/staff/password': typeof ApiV1StaffPasswordIndexRoute
+  '/api/v1/staff/telegram': typeof ApiV1StaffTelegramIndexRoute
+  '/api/v1/staff/tracking': typeof ApiV1StaffTrackingIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRoutesById {
@@ -568,11 +618,17 @@ export interface FileRoutesById {
   '/api/v1/staff/mali/debt': typeof ApiV1StaffMaliDebtRoute
   '/api/v1/staff/mali/payment': typeof ApiV1StaffMaliPaymentRoute
   '/api/v1/staff/notifications/read': typeof ApiV1StaffNotificationsReadRoute
+  '/api/v1/staff/assistant/': typeof ApiV1StaffAssistantIndexRoute
   '/api/v1/staff/clients/': typeof ApiV1StaffClientsIndexRoute
+  '/api/v1/staff/credentials/': typeof ApiV1StaffCredentialsIndexRoute
+  '/api/v1/staff/export/': typeof ApiV1StaffExportIndexRoute
+  '/api/v1/staff/feedback/': typeof ApiV1StaffFeedbackIndexRoute
   '/api/v1/staff/mali/': typeof ApiV1StaffMaliIndexRoute
   '/api/v1/staff/notifications/': typeof ApiV1StaffNotificationsIndexRoute
   '/api/v1/staff/packages/': typeof ApiV1StaffPackagesIndexRoute
   '/api/v1/staff/password/': typeof ApiV1StaffPasswordIndexRoute
+  '/api/v1/staff/telegram/': typeof ApiV1StaffTelegramIndexRoute
+  '/api/v1/staff/tracking/': typeof ApiV1StaffTrackingIndexRoute
   '/api/v1/client/diets/$id/pdf': typeof ApiV1ClientDietsIdPdfRoute
 }
 export interface FileRouteTypes {
@@ -634,11 +690,17 @@ export interface FileRouteTypes {
     | '/api/v1/staff/mali/debt'
     | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/assistant/'
     | '/api/v1/staff/clients/'
+    | '/api/v1/staff/credentials/'
+    | '/api/v1/staff/export/'
+    | '/api/v1/staff/feedback/'
     | '/api/v1/staff/mali/'
     | '/api/v1/staff/notifications/'
     | '/api/v1/staff/packages/'
     | '/api/v1/staff/password/'
+    | '/api/v1/staff/telegram/'
+    | '/api/v1/staff/tracking/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -695,11 +757,17 @@ export interface FileRouteTypes {
     | '/api/v1/staff/mali/debt'
     | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/assistant'
     | '/api/v1/staff/clients'
+    | '/api/v1/staff/credentials'
+    | '/api/v1/staff/export'
+    | '/api/v1/staff/feedback'
     | '/api/v1/staff/mali'
     | '/api/v1/staff/notifications'
     | '/api/v1/staff/packages'
     | '/api/v1/staff/password'
+    | '/api/v1/staff/telegram'
+    | '/api/v1/staff/tracking'
     | '/api/v1/client/diets/$id/pdf'
   id:
     | '__root__'
@@ -759,11 +827,17 @@ export interface FileRouteTypes {
     | '/api/v1/staff/mali/debt'
     | '/api/v1/staff/mali/payment'
     | '/api/v1/staff/notifications/read'
+    | '/api/v1/staff/assistant/'
     | '/api/v1/staff/clients/'
+    | '/api/v1/staff/credentials/'
+    | '/api/v1/staff/export/'
+    | '/api/v1/staff/feedback/'
     | '/api/v1/staff/mali/'
     | '/api/v1/staff/notifications/'
     | '/api/v1/staff/packages/'
     | '/api/v1/staff/password/'
+    | '/api/v1/staff/telegram/'
+    | '/api/v1/staff/tracking/'
     | '/api/v1/client/diets/$id/pdf'
   fileRoutesById: FileRoutesById
 }
@@ -803,11 +877,17 @@ export interface RootRouteChildren {
   ApiV1StaffMaliDebtRoute: typeof ApiV1StaffMaliDebtRoute
   ApiV1StaffMaliPaymentRoute: typeof ApiV1StaffMaliPaymentRoute
   ApiV1StaffNotificationsReadRoute: typeof ApiV1StaffNotificationsReadRoute
+  ApiV1StaffAssistantIndexRoute: typeof ApiV1StaffAssistantIndexRoute
   ApiV1StaffClientsIndexRoute: typeof ApiV1StaffClientsIndexRoute
+  ApiV1StaffCredentialsIndexRoute: typeof ApiV1StaffCredentialsIndexRoute
+  ApiV1StaffExportIndexRoute: typeof ApiV1StaffExportIndexRoute
+  ApiV1StaffFeedbackIndexRoute: typeof ApiV1StaffFeedbackIndexRoute
   ApiV1StaffMaliIndexRoute: typeof ApiV1StaffMaliIndexRoute
   ApiV1StaffNotificationsIndexRoute: typeof ApiV1StaffNotificationsIndexRoute
   ApiV1StaffPackagesIndexRoute: typeof ApiV1StaffPackagesIndexRoute
   ApiV1StaffPasswordIndexRoute: typeof ApiV1StaffPasswordIndexRoute
+  ApiV1StaffTelegramIndexRoute: typeof ApiV1StaffTelegramIndexRoute
+  ApiV1StaffTrackingIndexRoute: typeof ApiV1StaffTrackingIndexRoute
   ApiV1ClientDietsIdPdfRoute: typeof ApiV1ClientDietsIdPdfRoute
 }
 
@@ -1177,6 +1257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1AuthClientLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/staff/assistant/': {
+      id: '/api/v1/staff/assistant/'
+      path: '/api/v1/staff/assistant'
+      fullPath: '/api/v1/staff/assistant/'
+      preLoaderRoute: typeof ApiV1StaffAssistantIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/staff/clients/': {
       id: '/api/v1/staff/clients/'
       path: '/api/v1/staff/clients'
@@ -1189,6 +1276,27 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/staff/clients/$id'
       fullPath: '/api/v1/staff/clients/$id'
       preLoaderRoute: typeof ApiV1StaffClientsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/credentials/': {
+      id: '/api/v1/staff/credentials/'
+      path: '/api/v1/staff/credentials'
+      fullPath: '/api/v1/staff/credentials/'
+      preLoaderRoute: typeof ApiV1StaffCredentialsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/export/': {
+      id: '/api/v1/staff/export/'
+      path: '/api/v1/staff/export'
+      fullPath: '/api/v1/staff/export/'
+      preLoaderRoute: typeof ApiV1StaffExportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/feedback/': {
+      id: '/api/v1/staff/feedback/'
+      path: '/api/v1/staff/feedback'
+      fullPath: '/api/v1/staff/feedback/'
+      preLoaderRoute: typeof ApiV1StaffFeedbackIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/staff/mali/': {
@@ -1238,6 +1346,20 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/staff/password'
       fullPath: '/api/v1/staff/password/'
       preLoaderRoute: typeof ApiV1StaffPasswordIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/telegram/': {
+      id: '/api/v1/staff/telegram/'
+      path: '/api/v1/staff/telegram'
+      fullPath: '/api/v1/staff/telegram/'
+      preLoaderRoute: typeof ApiV1StaffTelegramIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/staff/tracking/': {
+      id: '/api/v1/staff/tracking/'
+      path: '/api/v1/staff/tracking'
+      fullPath: '/api/v1/staff/tracking/'
+      preLoaderRoute: typeof ApiV1StaffTrackingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/client/diets/$id/pdf': {
@@ -1353,11 +1475,17 @@ const rootRouteChildren: RootRouteChildren = {
   ApiV1StaffMaliDebtRoute: ApiV1StaffMaliDebtRoute,
   ApiV1StaffMaliPaymentRoute: ApiV1StaffMaliPaymentRoute,
   ApiV1StaffNotificationsReadRoute: ApiV1StaffNotificationsReadRoute,
+  ApiV1StaffAssistantIndexRoute: ApiV1StaffAssistantIndexRoute,
   ApiV1StaffClientsIndexRoute: ApiV1StaffClientsIndexRoute,
+  ApiV1StaffCredentialsIndexRoute: ApiV1StaffCredentialsIndexRoute,
+  ApiV1StaffExportIndexRoute: ApiV1StaffExportIndexRoute,
+  ApiV1StaffFeedbackIndexRoute: ApiV1StaffFeedbackIndexRoute,
   ApiV1StaffMaliIndexRoute: ApiV1StaffMaliIndexRoute,
   ApiV1StaffNotificationsIndexRoute: ApiV1StaffNotificationsIndexRoute,
   ApiV1StaffPackagesIndexRoute: ApiV1StaffPackagesIndexRoute,
   ApiV1StaffPasswordIndexRoute: ApiV1StaffPasswordIndexRoute,
+  ApiV1StaffTelegramIndexRoute: ApiV1StaffTelegramIndexRoute,
+  ApiV1StaffTrackingIndexRoute: ApiV1StaffTrackingIndexRoute,
   ApiV1ClientDietsIdPdfRoute: ApiV1ClientDietsIdPdfRoute,
 }
 export const routeTree = rootRouteImport

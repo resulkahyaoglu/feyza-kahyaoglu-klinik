@@ -362,6 +362,76 @@ Success: `{ "ok": true }`
 
 
 
+### `GET /api/v1/staff/feedback`
+
+Authenticated **admin** or **assistant**. Client feedback list (marks unread as read, same as web).
+
+Success: `{ "auth": true, "role": "admin", "rows": [ { "id", "user_id", "message", "is_read", "created_at", "client_name", "client_phone" } ] }`
+
+### `POST /api/v1/staff/feedback`
+
+Body: `{ "id": 12 }` — delete feedback.  
+Success: `{ "ok": true }`
+
+### `GET /api/v1/staff/tracking`
+
+Authenticated **admin** or **assistant**. Staff “Takip” dashboard: today’s logs, low water, sleep/stress, skipped trackers, emotional eating week, out-of-range lab values, uploads, markers.
+
+Success includes: `stats`, `todayLogs`, `lowWater`, `sleepStress`, `skipped`, `emotionalWeek`, `flagged`, `labValues`, `uploads`, `markers`.
+
+### `POST /api/v1/staff/tracking`
+
+Body `action`:
+
+- `staffNote` — `{ "action":"staffNote", "id", "note" }`
+- `deleteLab` — `{ "action":"deleteLab", "id" }`
+- `saveValue` — `{ "action":"saveValue", "userId", "takenAt", "marker", "value", "notes?", "refMin?", "refMax?", "customLabel?", "customUnit?" }`
+- `deleteValue` — `{ "action":"deleteValue", "id" }`
+
+### `GET /api/v1/staff/telegram`
+
+Authenticated staff. Bot status (masked token for admin only — raw token never returned), link slots, pending codes.
+
+### `POST /api/v1/staff/telegram`
+
+Body `action`:
+
+- `saveToken` — **admin only** `{ "action":"saveToken", "token":"…" }` (token never logged)
+- `startLink` / `confirmLink` / `unlink` / `test` — `{ "action":"…", "slot?": 1|2 }`
+
+### `GET /api/v1/staff/credentials`
+
+**Admin only.** Staff usernames + client phone list (no password hashes).
+
+### `POST /api/v1/staff/credentials`
+
+**Admin only.**
+
+- `updateStaff` — `{ "action":"updateStaff", "role":"admin"|"assistant", "username", "password?" }`
+- `updateClient` — `{ "action":"updateClient", "id", "phone", "password?" }`
+
+### `GET /api/v1/staff/export`
+
+**Admin only.** Backup list + Postgres table stats.
+
+### `POST /api/v1/staff/export`
+
+**Admin only.** Returns base64 file payloads for mobile save/share:
+
+- `backupNow` → `{ ok, filename, mime, b64, name, bytes }`
+- `downloadBackup` — `{ "action":"downloadBackup", "name":"klinik-YYYY-MM-DD.json" }`
+- `excelAll` / `excelAppts` → `{ ok, filename, mime, b64 }`
+
+### `GET /api/v1/staff/assistant`
+
+**Admin only.** Assistant day summary: login/logout, pending delete approvals, today’s logs.
+
+### `POST /api/v1/staff/assistant`
+
+**Admin only.** `{ "action":"decide", "id", "decision":"onaylandi"|"reddedildi" }`
+
+
+
 ## Example (client)
 
 ```bash
